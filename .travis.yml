@@ -17,6 +17,11 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
+addons:
+  ssh_known_hosts:
+  - wd.exception.ovh
+  - exception.ovh
+
 before_script:
   # Create and start emulator
   - chmod +x gradlew
@@ -39,8 +44,3 @@ cache:
     - $HOME/.gradle/daemon
     - $HOME/.gradle/caches/jars-1
     - $HOME/.gradle/caches/2.*
-
-addons:
-  ssh_known_hosts:
-  - wd.exception.ovh
-  - exception.ovh
