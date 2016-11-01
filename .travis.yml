@@ -1,16 +1,13 @@
 language: android
 jdk: oraclejdk8
-sudo: true
+sudo: false
 
 android:
   components:
     - platform-tools
     - tools
     - build-tools-25.0.0
-    - android-22
     - android-23
-    - android-24
-    - android-25
     - sys-img-armeabi-v7a-android-22
     - extra-android-m2repository
 
@@ -27,4 +24,17 @@ before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
-script: ./gradlew connectedAndroidTest -i
+script:
+  - ./gradlew build connectedCheck
+  - ./gradlew connectedAndroidTest -i
+
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  
+cache:
+  directories:
+    - $HOME/.gradle/wrapper
+    - $HOME/.gradle/native
+    - $HOME/.gradle/daemon
+    - $HOME/.gradle/caches/jars-1
+    - $HOME/.gradle/caches/2.*
