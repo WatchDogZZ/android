@@ -26,6 +26,7 @@ addons:
   ssh_known_hosts:
   - wd.exception.ovh
   - exception.ovh
+
 before_script:
   # Create and start emulator
   - chmod +x gradlew
