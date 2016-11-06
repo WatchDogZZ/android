@@ -1,30 +1,32 @@
 language: android
 jdk: oraclejdk8
-sudo: true
-
+sudo: false
+env:
+  global:
+  - ANDROID_TARGET=android-11
+  - ANDROID_ABI=armeabi-v7a
 android:
   components:
-    - platform-tools
-    - tools
-    - build-tools-25.0.0
-    - android-22
-    - android-23
-    - android-24
-    - android-25
-    - sys-img-armeabi-v7a-android-22
-    - extra-android-m2repository
-
+  - platform-tools
+  - tools
+  - build-tools-25.0.0
+  - android-23
+  - extra-android-m2repository
+  - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
   licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-
+  - android-sdk-preview-license-52d11cd2
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 before_script:
-  # Create and start emulator
-  - chmod +x gradlew
-  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-
-script: ./gradlew connectedAndroidTest
+- chmod +x gradlew
+script:
+- "./gradlew -PdisablePreDex build"
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: releases
+  api_key:
+    secure: mTsN/cbIhI2WyJAh8ZiVqcdJLuda3grSZamglFHP0rPeSf33EWvX+6RB8sZuxnYrymxABOxMuXCekZZVqAN4maUFpddSc2uX3zUGh4zHWSOkl06rYSGwIS8nT0e2GUjAyQdSJ/ISoGf+tuau/dh/LaghHAa+pCwzxcqS/37mTNspkBoC9dRi4N9hg5AqJsjm89OCsr9wBoPipzPj6ywE47U+xln/+zhfSgkseWAdpFg4obV1sJR6Bxr/l+mDGZ9ozla+o/xvUOTTDIQrAqmLck45YPriuTjSsny+N5R6anNTMJiX9WjXNDvdShNXU2KOljodRE5YSA8ot4xr02z1bih9+o0i8SXZ5g/lDme5RLo44TBI9Kt9MmghmReuX/+SaB+NId45XCoqsIo667avBnzsXK2CxuzlGCAkAxncE81zIxUxbN0nXSpyIUYSOjxZJLz2AhdTZsF5OWy1Z7VH96BV6UatUh7EqiyOpcXaDHa1RDIH8X0OoK9rUWa4BuHM6CSWRV+olgblZaXT8AZ5thb7j9RyZZIwkHJ9v9r3u3sLaiBU1TAB2kl6/onVzJEFAB7AITi11ZzBbIDZ5j9HbPfa50p83bxInD6WZc72Q1RIsajVDA1V+n2IwhKaTjo/3lMpAlJMmcCwPJ1Td4RXWG5q6nSH0HZH7E4ZABc5aLQ=
+  file: WatchDogZZ/build/outputs/apk/*.apk
+  on:
+    repo: WatchDogZZ/android
