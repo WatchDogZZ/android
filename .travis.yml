@@ -23,7 +23,7 @@ script:
 - "./gradlew -PdisablePreDex build"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-- ls -lah WatchDogZZ/build/outputs/apk/
+- ls -lahR
 deploy:
   provider: releases
   api_key:
