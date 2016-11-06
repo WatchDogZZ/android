@@ -15,3 +15,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# supprime des erreurs
+-libraryjars <java.home>/lib/rt.jar
