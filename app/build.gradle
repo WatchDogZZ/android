@@ -14,10 +14,15 @@ android {
         testHandleProfiling true
         testFunctionalTest true
     }
+    dexOptions {
+        incremental false
+        javaMaxHeapSize "2048M"
+        preDexLibraries = false
+    }//end dexOptions
     buildTypes {
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //minifyEnabled true
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testCoverageEnabled true
         }
     }
