@@ -1,4 +1,4 @@
-# Material file for isima2d.obj
+# Material file for isima2d_o.obj
 
 newmtl isima_color
 	Ns 0
@@ -7,5 +7,5 @@ newmtl isima_color
 	Kd 1.0 1.0 1.0
 	Ks 1.0 1.0 1.0
 	Ka 0.2 0.2 0.2
-	map_Kd .\isima2d.png
+	map_Kd .\isima2d_p.png
 
