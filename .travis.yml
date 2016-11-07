@@ -29,6 +29,10 @@ script:
   - "./gradlew -PdisablePreDex build"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+before_deploy:
+  - pwd
+  - ls -lhaR ./app/build/outputs/
+  - ls -lhaR .
 deploy:
   skip_cleanup: true
   provider: releases
