@@ -36,7 +36,15 @@ before_deploy:
   - ls -lhaR .
 deploy:
   skip_cleanup: true
-  provider: releases
+- provider: script
+  script:
+    - pwd;
+    - ls;
+    - ls -lahR
+    - return 0;
+  on:
+    repo: WatchDogZZ/android
+- provider: releases
   api_key:
     secure: mTsN/cbIhI2WyJAh8ZiVqcdJLuda3grSZamglFHP0rPeSf33EWvX+6RB8sZuxnYrymxABOxMuXCekZZVqAN4maUFpddSc2uX3zUGh4zHWSOkl06rYSGwIS8nT0e2GUjAyQdSJ/ISoGf+tuau/dh/LaghHAa+pCwzxcqS/37mTNspkBoC9dRi4N9hg5AqJsjm89OCsr9wBoPipzPj6ywE47U+xln/+zhfSgkseWAdpFg4obV1sJR6Bxr/l+mDGZ9ozla+o/xvUOTTDIQrAqmLck45YPriuTjSsny+N5R6anNTMJiX9WjXNDvdShNXU2KOljodRE5YSA8ot4xr02z1bih9+o0i8SXZ5g/lDme5RLo44TBI9Kt9MmghmReuX/+SaB+NId45XCoqsIo667avBnzsXK2CxuzlGCAkAxncE81zIxUxbN0nXSpyIUYSOjxZJLz2AhdTZsF5OWy1Z7VH96BV6UatUh7EqiyOpcXaDHa1RDIH8X0OoK9rUWa4BuHM6CSWRV+olgblZaXT8AZ5thb7j9RyZZIwkHJ9v9r3u3sLaiBU1TAB2kl6/onVzJEFAB7AITi11ZzBbIDZ5j9HbPfa50p83bxInD6WZc72Q1RIsajVDA1V+n2IwhKaTjo/3lMpAlJMmcCwPJ1Td4RXWG5q6nSH0HZH7E4ZABc5aLQ=
   file: 
