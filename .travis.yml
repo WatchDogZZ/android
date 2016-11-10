@@ -30,9 +30,6 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 before_deploy:
-  - pwd
-  - chmod +rwx ./app/build/outputs/apk/*
-  - ls -lhaR ./app/build/outputs/
   - cp app/build/outputs/apk/app-release-unsigned.apk app-release.apk
 deploy:
   skip_cleanup: true
@@ -43,8 +40,3 @@ deploy:
     - "app-release.apk"
   on:
     repo: WatchDogZZ/android
-after_deploy:
-  - pwd
-  - chmod +rwx ./app/build/outputs/apk/*
-  - ls -lhaR ./app/build/outputs/
-  - ls -lhaR .
