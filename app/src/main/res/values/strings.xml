@@ -2,6 +2,7 @@
     <string name="app_name">WatchDogZZ</string>
 
     <!-- Strings related to login -->
+    <string name="connect">Sign up with Google</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -13,4 +14,14 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="description_logo_wdzz">Logo of WatchDogZZ application.</string>
+    <string name="copyrights">"© WatchDogZZ 2016\n© B.B. &amp; B.G. 2016"</string>
+
+    <!-- Strings related to main view -->
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
