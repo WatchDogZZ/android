@@ -23,7 +23,7 @@ public class WDRenderer implements Renderer {
     // Constructeur avec contexte
     public WDRenderer(Context context) {
         this.context = context;
-        this.map = new WDMap(context);
+        this.setMap(new WDMap(context));
         this.camera = new WDCamera(0, 0, -8.0f);
     }
 
@@ -85,7 +85,7 @@ public class WDRenderer implements Renderer {
         gl.glPushMatrix();
         this.camera.watch(gl);
         gl.glPushMatrix();
-        this.map.draw(gl);                   // Draw model
+        this.getMap().draw(gl);                   // Draw model
         gl.glPopMatrix();
         gl.glPopMatrix();
     }
@@ -102,4 +102,11 @@ public class WDRenderer implements Renderer {
         this.camera.setPosition(this.camera.x(), this.camera.y(), this.camera.z()*coef);
     }
 
+    public WDMap getMap() {
+        return map;
+    }
+
+    public void setMap(WDMap map) {
+        this.map = map;
+    }
 }

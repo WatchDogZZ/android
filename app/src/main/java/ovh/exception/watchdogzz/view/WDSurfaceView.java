@@ -6,15 +6,18 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import ovh.exception.watchdogzz.data.User;
 import ovh.exception.watchdogzz.data.UserManager;
+import ovh.exception.watchdogzz.model.WDMap;
 
 /**
  * Created by begarco on 19/11/2016.
  */
 
-public class WDSurfaceView extends GLSurfaceView {
+public class WDSurfaceView extends GLSurfaceView implements Observer {
 
     private WDRenderer mRenderer;
     private UserManager users;
@@ -109,4 +112,9 @@ public class WDSurfaceView extends GLSurfaceView {
         return b;
     }
 
+    @Override
+    public void update(Observable observable, Object data) {
+        if(observable instanceof WDMap)
+            requestRender();
+    }
 }
