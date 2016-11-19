@@ -35,6 +35,7 @@ public class WDSurfaceView extends GLSurfaceView {
         super(context, attrs);
         isZooming = false;
         mSpaceBetweenFingers = 0.0f;
+        users = new UserManager();
     }
 
     @Override
@@ -42,11 +43,14 @@ public class WDSurfaceView extends GLSurfaceView {
         super.setRenderer(renderer);
         this.mRenderer = (WDRenderer) renderer;
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        users.addObserver(this.mRenderer.getMap());
     }
 
     public void setRenderer(WDRenderer renderer) {
         super.setRenderer(renderer);
         this.mRenderer = renderer;
+        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        users.addObserver(this.mRenderer.getMap());
     }
 
     @Override
