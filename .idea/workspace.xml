@@ -15,24 +15,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bf3aaee-1606-4dae-860b-4bbcd25ee99d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/GPSPosition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/User.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDArtefact.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDDrawable.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDCamera.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDSurfaceView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/UserManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/GPSPosition.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/GPSPosition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/User.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDMap.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDObjet.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDObjet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/app_map_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/app_map_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/activities/LoginActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/activities/MainActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/MyGLRenderer.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDSurfaceView.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDSurfaceView.java" />
     </list>
     <ignored path="android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,15 +54,98 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="WDSurfaceView.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WDSurfaceView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDSurfaceView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="97" column="24" selection-start-line="97" selection-start-column="24" selection-end-line="97" selection-end-column="24" />
+            <state relative-caret-position="-422">
+              <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#623#624#0" expanded="true" />
-                <element signature="e#658#659#0" expanded="true" />
+                <element signature="e#721#722#0" expanded="true" />
+                <element signature="e#756#757#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserManager.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/UserManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="428">
+              <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#373#374#0" expanded="true" />
+                <element signature="e#401#402#0" expanded="true" />
+                <element signature="e#439#440#0" expanded="true" />
+                <element signature="e#478#479#0" expanded="true" />
+                <element signature="e#1324#1325#0" expanded="true" />
+                <element signature="e#1349#1350#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WDMap.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDMap.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="496">
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WDObjet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDObjet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="547">
+              <caret line="121" column="53" selection-start-line="121" selection-start-column="53" selection-end-line="121" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GPSPosition.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/GPSPosition.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+              <folding>
+                <element signature="e#488#489#0" expanded="true" />
+                <element signature="e#513#514#0" expanded="true" />
+                <element signature="e#546#547#0" expanded="true" />
+                <element signature="e#574#575#0" expanded="true" />
+                <element signature="e#605#606#0" expanded="true" />
+                <element signature="e#632#633#0" expanded="true" />
+                <element signature="e#672#673#0" expanded="true" />
+                <element signature="e#704#705#0" expanded="true" />
+                <element signature="e#736#737#0" expanded="true" />
+                <element signature="e#764#765#0" expanded="true" />
+                <element signature="e#806#807#0" expanded="true" />
+                <element signature="e#840#841#0" expanded="true" />
+                <element signature="e#869#870#0" expanded="true" />
+                <element signature="e#896#897#0" expanded="true" />
+                <element signature="e#933#934#0" expanded="true" />
+                <element signature="e#958#959#0" expanded="true" />
+                <element signature="e#998#999#0" expanded="true" />
+                <element signature="e#1029#1030#0" expanded="true" />
+                <element signature="e#1082#1083#0" expanded="true" />
+                <element signature="e#1122#1123#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,61 +181,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewRootImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://P:/Programs/Android/sdk/sources/android-23/android/view/ViewRootImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="6554" column="0" selection-start-line="6554" selection-start-column="0" selection-end-line="6554" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ViewGroup.java" pinned="false" current-in-tab="false">
-        <entry file="file://P:/Programs/Android/sdk/sources/android-23/android/view/ViewGroup.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="2256" column="0" selection-start-line="2256" selection-start-column="0" selection-end-line="2256" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PhoneWindow.java" pinned="false" current-in-tab="false">
-        <entry file="file://P:/Programs/Android/sdk/sources/android-23/com/android/internal/policy/PhoneWindow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="1772" column="0" selection-start-line="1772" selection-start-column="0" selection-end-line="1772" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity.java" pinned="false" current-in-tab="false">
-        <entry file="file://P:/Programs/Android/sdk/sources/android-23/android/app/Activity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="2797" column="0" selection-start-line="2797" selection-start-column="0" selection-end-line="2797" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WindowCallbackWrapper.java" pinned="false" current-in-tab="false">
-        <entry file="jar://P:/Programs/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/23.4.0/appcompat-v7-23.4.0-sources.jar!/android/support/v7/view/WindowCallbackWrapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="WDRenderer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="394">
-              <caret line="97" column="36" selection-start-line="97" selection-start-column="36" selection-end-line="97" selection-end-column="36" />
+            <state relative-caret-position="289">
+              <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1873,13 +1895,16 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/app_map_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDDrawable.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDObjet.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDMap.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDArtefact.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/Camera.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDGLRenderer.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDCamera.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDRenderer.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDSurfaceView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/GPSPosition.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDMap.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/UserManager.java" />
       </list>
     </option>
   </component>
@@ -2004,6 +2029,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="raw" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mipmap" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2534,7 +2577,14 @@
       <option name="project" value="LOCAL" />
       <updated>1479561125630</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Navigation sur la carte 3D">
+      <created>1479580057441</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1479580057442</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2598,20 +2648,21 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Retour avant ajout de la 3D" />
     <MESSAGE value="Ajout de la vue 3d de l'isima après le login google" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout de la vue 3d de l'isima après le login google" />
+    <MESSAGE value="Navigation sur la carte 3D" />
+    <option name="LAST_COMMIT_MESSAGE" value="Navigation sur la carte 3D" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDSurfaceView.java</url>
-          <line>52</line>
+          <line>55</line>
           <properties />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDSurfaceView.java</url>
-          <line>58</line>
+          <line>61</line>
           <properties />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
@@ -2621,11 +2672,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-mdpi/logo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/logo.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -2847,22 +2893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/GPSPosition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -2876,26 +2906,6 @@
         <state relative-caret-position="272">
           <caret line="16" column="76" selection-start-line="16" selection-start-column="76" selection-end-line="16" selection-end-column="76" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDObjet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="121" column="53" selection-start-line="121" selection-start-column="53" selection-end-line="121" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3026,16 +3036,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="97" column="36" selection-start-line="97" selection-start-column="36" selection-end-line="97" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://P:/Programs/Android/sdk/sources/android-23/android/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -3052,14 +3052,97 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/GPSPosition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDSurfaceView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="97" column="24" selection-start-line="97" selection-start-column="24" selection-end-line="97" selection-end-column="24" />
+        <state relative-caret-position="-422">
+          <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#623#624#0" expanded="true" />
-            <element signature="e#658#659#0" expanded="true" />
+            <element signature="e#721#722#0" expanded="true" />
+            <element signature="e#756#757#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/view/WDRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/model/WDObjet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="121" column="53" selection-start-line="121" selection-start-column="53" selection-end-line="121" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+          <folding>
+            <element signature="e#488#489#0" expanded="true" />
+            <element signature="e#513#514#0" expanded="true" />
+            <element signature="e#546#547#0" expanded="true" />
+            <element signature="e#574#575#0" expanded="true" />
+            <element signature="e#605#606#0" expanded="true" />
+            <element signature="e#632#633#0" expanded="true" />
+            <element signature="e#672#673#0" expanded="true" />
+            <element signature="e#704#705#0" expanded="true" />
+            <element signature="e#736#737#0" expanded="true" />
+            <element signature="e#764#765#0" expanded="true" />
+            <element signature="e#806#807#0" expanded="true" />
+            <element signature="e#840#841#0" expanded="true" />
+            <element signature="e#869#870#0" expanded="true" />
+            <element signature="e#896#897#0" expanded="true" />
+            <element signature="e#933#934#0" expanded="true" />
+            <element signature="e#958#959#0" expanded="true" />
+            <element signature="e#998#999#0" expanded="true" />
+            <element signature="e#1029#1030#0" expanded="true" />
+            <element signature="e#1082#1083#0" expanded="true" />
+            <element signature="e#1122#1123#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/data/UserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#373#374#0" expanded="true" />
+            <element signature="e#401#402#0" expanded="true" />
+            <element signature="e#439#440#0" expanded="true" />
+            <element signature="e#478#479#0" expanded="true" />
+            <element signature="e#1324#1325#0" expanded="true" />
+            <element signature="e#1349#1350#0" expanded="true" />
           </folding>
         </state>
       </provider>

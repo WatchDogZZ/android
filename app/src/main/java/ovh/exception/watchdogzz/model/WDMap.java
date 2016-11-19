@@ -4,14 +4,18 @@ import android.content.Context;
 import android.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.microedition.khronos.opengles.GL10;
+
+import ovh.exception.watchdogzz.data.User;
 
 /**
  * Created by begarco on 19/11/2016.
  */
 
-public class WDMap implements WDDrawable {
+public class WDMap implements WDDrawable, Observer {
     private WDObjet map;
     private ArrayList<Pair<WDArtefact,float[]>> markers;
 
@@ -36,6 +40,15 @@ public class WDMap implements WDDrawable {
         // dessin des marqueurs
         for (Pair<WDArtefact,float[]> x : markers) {
             x.first.draw(gl);
+        }
+    }
+
+    @Override
+    public void update(Observable observable, Object data) {
+        if (data instanceof User) {
+
+        } else if (data instanceof Integer) {
+
         }
     }
 }
