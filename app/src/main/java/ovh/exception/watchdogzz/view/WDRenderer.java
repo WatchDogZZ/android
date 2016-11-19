@@ -1,4 +1,4 @@
-package ovh.exception.watchdogzz;
+package ovh.exception.watchdogzz.view;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView.Renderer;
@@ -14,15 +14,17 @@ import ovh.exception.watchdogzz.model.WDMap;
  * Created by begarco on 19/11/2016.
  */
 
-public class MyGLRenderer implements Renderer {
+public class WDRenderer implements Renderer {
 
-    Context context;    // contexte de l'application
-    WDMap map;          // modele de la carte
+    private Context context;    // contexte de l'application
+    private WDCamera camera;    // camera
+    private WDMap map;          // modele de la carte
 
     // Constructeur avec contexte
-    public MyGLRenderer(Context context) {
+    public WDRenderer(Context context) {
         this.context = context;
         this.map = new WDMap(context);
+        this.camera = new WDCamera(0, 0, -8.0f);
     }
 
     /**
@@ -79,8 +81,25 @@ public class MyGLRenderer implements Renderer {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
         /** dessin de la scene **/
-        gl.glLoadIdentity();                 // Reset model-view matrix ( NEW )
-        gl.glTranslatef(-1.5f, 0.0f, -6.0f); // Translate left and into the screen ( NEW )
-        this.map.draw(gl);                   // Draw triangle ( NEW )
+        gl.glLoadIdentity();                 // Reset model-view matrix
+        gl.glPushMatrix();
+        this.camera.watch(gl);
+        gl.glPushMatrix();
+        this.map.draw(gl);                   // Draw model
+        gl.glPopMatrix();
+        gl.glPopMatrix();
     }
+
+    public void moveCamera(float dx, float dy, float dz) {
+        this.camera.setPosition(camera.x()+dx,camera.y()+dy,camera.z()+dz);
+    }
+
+    /**
+     * effectue un zoom de la camera
+     * @param coef
+     */
+    public void zoomCamera(float coef) {
+        this.camera.setPosition(this.camera.x(), this.camera.y(), this.camera.z()*coef);
+    }
+
 }

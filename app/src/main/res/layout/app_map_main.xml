@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="ovh.exception.watchdogzz.MainActivity">
+    tools:context="ovh.exception.watchdogzz.activities.MainActivity">
 
-    <android.opengl.GLSurfaceView
+    <ovh.exception.watchdogzz.view.WDSurfaceView
         android:id="@+id/main_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-    </android.opengl.GLSurfaceView>
+    </ovh.exception.watchdogzz.view.WDSurfaceView>
 
     <include layout="@layout/content_main" />
 

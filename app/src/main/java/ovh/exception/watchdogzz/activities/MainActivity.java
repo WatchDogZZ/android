@@ -1,6 +1,5 @@
-package ovh.exception.watchdogzz;
+package ovh.exception.watchdogzz.activities;
 
-import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,10 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
+import ovh.exception.watchdogzz.R;
+import ovh.exception.watchdogzz.view.WDRenderer;
+import ovh.exception.watchdogzz.view.WDSurfaceView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,8 +27,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); // doit etre avant tout appel au layout
-        glView = (GLSurfaceView) findViewById(R.id.main_map);
-        glView.setRenderer(new MyGLRenderer(this)); // Use a custom renderer
+        glView = (WDSurfaceView) findViewById(R.id.main_map);
+        glView.setRenderer(new WDRenderer(this)); // Use a custom renderer
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -10,54 +10,112 @@ import java.util.ArrayList;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 /**
  * Created by begarco on 19/11/2016.
  */
 
-public class WDObjet {
+public class WDObjet implements WDDrawable {
     private FloatBuffer vertexBuffer;  // Buffer for vertex-array
     private ByteBuffer indexBuffer;    // Buffer for index-array
     private int nbIndices;
+    private Shape2D type;
+
+    public enum Shape2D {
+        CUSTOM,
+        CIRCLE,
+        RECTANGLE,
+        TRIANGLE
+    }
+
+    public WDObjet(Shape2D s, float ... params) {
+
+        // donnees de forme
+        ArrayList<float[]> vertices = new ArrayList<>();
+        ArrayList<int[]> faces = new ArrayList<>();
+
+        switch (s) {
+            case CUSTOM:
+                break;
+            case CIRCLE:    // x,y,z,rayon,precision
+                if(params.length >= 2) {
+                    // traitement des params
+                    float[] center = {params[0],params[1],params.length>2?params[2]:0};
+                    float rayon = params.length>3?params[3]:1;
+                    int precision = params.length>4? (int) params[4] :64;
+
+                    // precalculs
+                    float pas = 2.0f * (float)Math.PI / (float)precision;
+                    vertices.add(center);
+                    for (int i = 0; i < precision + 1; i++){
+                        float angle = i * pas;
+                        float cx = (float) (rayon * cos(angle));
+                        float cy = (float) (rayon * sin(angle));
+                        float[] cur = { cx+center[0], cy+center[1], center[2] };
+
+                        vertices.add(cur);
+                    }
+                    // ajout des faces
+                    for(int i = 1 ; i <= precision ; ++i) {
+                        int[] fac = { 0, i, i+1 };
+                        faces.add(fac);
+                    }
+                    // generation
+                    fromRawData(vertices, faces);
+                } else {
+                    Log.w(WDObjet.class.getCanonicalName(), "Need of x, y, z, rayon and precision to draw a circle.");
+                }
+                break;
+            case RECTANGLE:
+                break;
+            case TRIANGLE:  // x1,y1,z1 , x2,y2,z2 , x3,y3,z3
+                if(params.length != 9) {
+                    Log.w(WDObjet.class.getCanonicalName(), "Need of x1,y1,z1 , x2,y2,z2 , x3,y3,z3 to draw a triangle.");
+                } else {
+                    for(int i = 0 ; i < 3 ; ++i) {
+                        float[] a = {params[3*i], params[3*i+1], params[3*i+2]};
+                        vertices.add(a);
+                    }
+                    int[] tri = { 0, 1, 2 };
+                    faces.add(tri);
+                    fromRawData(vertices, faces);
+                }
+                break;
+            default:
+                Log.w(WDObjet.class.getCanonicalName(), "You should use public WDObjet(ArrayList<float[]> vertices, ArrayList<int[]> faces)");
+                break;
+        }
+        type = s;
+    }
 
     public WDObjet(ArrayList<float[]> vertices, ArrayList<int[]> faces) {
+        fromRawData(vertices, faces);
+    }
+
+    private void fromRawData(ArrayList<float[]> vertices, ArrayList<int[]> faces) {
         // Setup vertex-array buffer. Vertices in float. A float has 4 bytes.
         ByteBuffer vbb = ByteBuffer.allocateDirect((vertices.size() * Float.SIZE * 3) / Byte.SIZE);
         vbb.order(ByteOrder.nativeOrder()); // Use native byte order
         vertexBuffer = vbb.asFloatBuffer(); // Convert byte buffer to float
         for (float[] vtx : vertices) {
             vertexBuffer.put(vtx);
-            Log.d("V", String.valueOf(vtx[0]) + " " + String.valueOf(vtx[1]) + " " + String.valueOf(vtx[2]));
         }
         vertexBuffer.position(0);           // Rewind
 
         // Setup index-array buffer. Indices in byte.
-        indexBuffer = ByteBuffer.allocateDirect((faces.size()*3*Integer.SIZE) / Byte.SIZE);
+        indexBuffer = ByteBuffer.allocateDirect((faces.size() * 3 * Integer.SIZE) / Byte.SIZE);
         for (int[] face : faces) {
-            for( int val : face) {
+            for (int val : face) {
                 indexBuffer.put((byte) val);
             }
-            Log.d("FACE", String.valueOf(face[0])+String.valueOf(face[1])+String.valueOf(face[2]));
         }
         indexBuffer.position(0);
 
-        nbIndices = faces.size()*3;
+        nbIndices = faces.size() * 3;
     }
 
-    // Constructor pour le triangle
-   /* public WDObjet() {
-        // Setup vertex-array buffer. Vertices in float. A float has 4 bytes.
-        ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
-        vbb.order(ByteOrder.nativeOrder()); // Use native byte order
-        vertexBuffer = vbb.asFloatBuffer(); // Convert byte buffer to float
-        vertexBuffer.put(vertices);         // Copy data into buffer
-        vertexBuffer.position(0);           // Rewind
-
-        // Setup index-array buffer. Indices in byte.
-        indexBuffer = ByteBuffer.allocateDirect(indices.length);
-        indexBuffer.put(indices);
-        indexBuffer.position(0);
-    }
-*/
     // Render this shape
     public void draw(GL10 gl) {
         // Enable vertex-array and define the buffers
