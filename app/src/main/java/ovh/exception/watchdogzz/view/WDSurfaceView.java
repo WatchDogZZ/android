@@ -20,7 +20,6 @@ import ovh.exception.watchdogzz.model.WDMap;
 public class WDSurfaceView extends GLSurfaceView implements Observer {
 
     private WDRenderer mRenderer;
-    private UserManager users;
 
     // position doigt
     private float mPreviousX;
@@ -38,7 +37,6 @@ public class WDSurfaceView extends GLSurfaceView implements Observer {
         super(context, attrs);
         isZooming = false;
         mSpaceBetweenFingers = 0.0f;
-        users = new UserManager();
     }
 
     @Override
@@ -46,14 +44,12 @@ public class WDSurfaceView extends GLSurfaceView implements Observer {
         super.setRenderer(renderer);
         this.mRenderer = (WDRenderer) renderer;
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-        users.addObserver(this.mRenderer.getMap());
     }
 
     public void setRenderer(WDRenderer renderer) {
         super.setRenderer(renderer);
         this.mRenderer = renderer;
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-        users.addObserver(this.mRenderer.getMap());
     }
 
     @Override

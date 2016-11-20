@@ -1,10 +1,14 @@
 package ovh.exception.watchdogzz.activities;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Build.VERSION;
@@ -22,6 +26,16 @@ import ovh.exception.watchdogzz.R;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
+
+    private enum Permissions {
+        REQUEST_GET_ACCOUNTS,
+        REQUEST_READ_PROFILE,
+        REQUEST_READ_CONTACTS,
+        REQUEST_ACCESS_FINE_LOCATION,
+        REQUEST_ACCESS_COARSE_LOCATION,
+        REQUEST_ACCESS_NETWORK_STATE,
+        REQUEST_VIBRATE
+    }
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -42,6 +56,51 @@ public class LoginActivity extends AppCompatActivity {
         that = this;
         mProgressView = findViewById(R.id.login_progress);
         mLoginFormView = findViewById(R.id.button);
+
+        // Check READ_CONTACTS
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    Permissions.REQUEST_READ_CONTACTS.ordinal());
+        }
+
+        // Check ACCESS_FINE_LOCATION
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    Permissions.REQUEST_ACCESS_FINE_LOCATION.ordinal());
+        }
+
+        // Check GET_ACCOUNTS
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.GET_ACCOUNTS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.GET_ACCOUNTS},
+                    Permissions.REQUEST_GET_ACCOUNTS.ordinal());
+        }
+
+        // Check ACCESS_COARSE_LOCATION
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    Permissions.REQUEST_ACCESS_COARSE_LOCATION.ordinal());
+        }
+
+        // Check VIBRATE
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.VIBRATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.VIBRATE},
+                    Permissions.REQUEST_VIBRATE.ordinal());
+        }
     }
 
     protected void connect(View v) {
@@ -84,6 +143,15 @@ public class LoginActivity extends AppCompatActivity {
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+        if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            finish();
+        }
+
     }
 
     /**

@@ -15,20 +15,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ovh.exception.watchdogzz.R;
+import ovh.exception.watchdogzz.data.UserManager;
+import ovh.exception.watchdogzz.network.NetworkManager;
+import ovh.exception.watchdogzz.network.PostitionManager;
 import ovh.exception.watchdogzz.view.WDRenderer;
 import ovh.exception.watchdogzz.view.WDSurfaceView;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private GLSurfaceView glView;   // Use GLSurfaceView
+    private WDSurfaceView glView;
+    private UserManager users;
+    private PostitionManager postitionManager;
+    private NetworkManager networkManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); // doit etre avant tout appel au layout
         glView = (WDSurfaceView) findViewById(R.id.main_map);
-        glView.setRenderer(new WDRenderer(this)); // Use a custom renderer
+        WDRenderer renderer = new WDRenderer(this);
+        glView.setRenderer(renderer); // Use a custom renderer
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -49,6 +55,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        this.postitionManager = new PostitionManager(this);
+        this.networkManager = new NetworkManager();
+        users = new UserManager();
+        users.addObserver(renderer.getMap());
     }
 
     @Override
