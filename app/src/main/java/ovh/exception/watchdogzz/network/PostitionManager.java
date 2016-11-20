@@ -1,6 +1,7 @@
 package ovh.exception.watchdogzz.network;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -9,6 +10,10 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+
+import ovh.exception.watchdogzz.activities.MainActivity;
+import ovh.exception.watchdogzz.data.GPSPosition;
+import ovh.exception.watchdogzz.data.User;
 
 /**
  * Created by begarco on 20/11/2016.
@@ -21,9 +26,11 @@ public class PostitionManager {
     private LocationListener locationListener;
 
     private Context context;
+    private MainActivity thisActivity;
 
-    public PostitionManager(Context context) {
+    public PostitionManager(MainActivity context) {
         this.context = context;
+        this.thisActivity = context;
 
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
@@ -31,6 +38,10 @@ public class PostitionManager {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
                 Log.d("POSITION GPS", location.toString());
+                thisActivity.getUsers().updateUser(thisActivity.getUsers().getMe().getId(),
+                        new User(0,"","",true,new GPSPosition(  (float)location.getLatitude(),
+                                                                (float)location.getLongitude(),
+                                                                (float)location.getAltitude())));
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {

@@ -1,6 +1,5 @@
 package ovh.exception.watchdogzz.activities;
 
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ovh.exception.watchdogzz.R;
+import ovh.exception.watchdogzz.data.GPSPosition;
+import ovh.exception.watchdogzz.data.User;
 import ovh.exception.watchdogzz.data.UserManager;
 import ovh.exception.watchdogzz.network.NetworkManager;
 import ovh.exception.watchdogzz.network.PostitionManager;
@@ -58,9 +59,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.postitionManager = new PostitionManager(this);
         this.networkManager = new NetworkManager();
-        users = new UserManager();
-        users.addObserver(renderer.getMap());
+        setUsers(new UserManager());
+        this.users.setMe(new User(0,"Moi","Mon email",true,new GPSPosition(0,0,0)));
+        getUsers().addObserver(renderer.getMap());
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -139,5 +143,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    public UserManager getUsers() {
+        return users;
+    }
+
+    public void setUsers(UserManager users) {
+        this.users = users;
     }
 }

@@ -3,6 +3,7 @@ package ovh.exception.watchdogzz.view;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -44,12 +45,14 @@ public class WDSurfaceView extends GLSurfaceView implements Observer {
         super.setRenderer(renderer);
         this.mRenderer = (WDRenderer) renderer;
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        this.mRenderer.getMap().addObserver(this);
     }
 
     public void setRenderer(WDRenderer renderer) {
         super.setRenderer(renderer);
         this.mRenderer = renderer;
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        this.mRenderer.getMap().addObserver(this);
     }
 
     @Override
@@ -110,7 +113,6 @@ public class WDSurfaceView extends GLSurfaceView implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
-        if(observable instanceof WDMap)
-            requestRender();
+        requestRender();
     }
 }

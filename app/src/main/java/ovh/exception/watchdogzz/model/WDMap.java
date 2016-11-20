@@ -1,6 +1,7 @@
 package ovh.exception.watchdogzz.model;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 
 import java.util.ArrayList;
@@ -37,6 +38,10 @@ public class WDMap extends Observable implements WDDrawable, Observer {
         markers.put(id,art);
     }
 
+    // TODO replace it
+    float [] origin = {0,0,0};
+
+
     // Render this shape
     public void draw(GL10 gl) {
         // dessin de la map
@@ -44,7 +49,12 @@ public class WDMap extends Observable implements WDDrawable, Observer {
 
         // dessin des marqueurs
         for (WDArtefact x : markers.values()) {
+            gl.glPushMatrix();
+            float[] tmp = x.getPosition().getForMap(origin,1,0);
+            gl.glTranslatef(tmp[0],tmp[1], tmp[2]);
+            Log.d("ME", x.getPosition().toString());
             x.draw(gl);
+            gl.glPopMatrix();
         }
     }
 
@@ -54,24 +64,27 @@ public class WDMap extends Observable implements WDDrawable, Observer {
             User u = (User)data;
             WDArtefact ar;
             if(markers.containsKey(u.getId())) {    // faire update
+                Log.d("ARTEFACT", "update");
                 ar = markers.get(u.getId());
                 ar.setPosition(u.getPosition());
                 ar.setLabel(u.getName());
                 ar.setInfo(u.getEmail());
             } else {    // faire ajout
+                Log.d("ARTEFACT", "add");
                 ar = new WDArtefact(context);
                 ar.setPosition(u.getPosition());
                 ar.setLabel(u.getName());
                 ar.setInfo(u.getEmail());
                 markers.put(u.getId(),ar);
             }
-        } else if (data instanceof Integer) {
+        } else if (data instanceof Integer) {   // suppression
             int index = (int) data;
+            Log.d("ARTEFACT", "remove");
             if(markers.containsKey(index)) {
                 markers.remove(index);
             }
         }
-        this.hasChanged();
+        this.setChanged();
         this.notifyObservers();
     }
 }
