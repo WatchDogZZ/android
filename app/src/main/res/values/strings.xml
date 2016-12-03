@@ -24,4 +24,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="server_client_id">933756986924-ont7s5iohrb9rm3nch8momvatsr4qp47.apps.googleusercontent.com</string>
+
 </resources>

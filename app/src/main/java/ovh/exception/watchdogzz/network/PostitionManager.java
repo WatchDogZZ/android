@@ -39,7 +39,7 @@ public class PostitionManager {
                 // Called when a new location is found by the network location provider.
                 Log.d("POSITION GPS", location.toString());
                 thisActivity.getUsers().updateUser(thisActivity.getUsers().getMe().getId(),
-                        new User(0,"","",true,new GPSPosition(  (float)location.getLatitude(),
+                        new User("","","",null,true,new GPSPosition(  (float)location.getLatitude(),
                                                                 (float)location.getLongitude(),
                                                                 (float)location.getAltitude())));
             }

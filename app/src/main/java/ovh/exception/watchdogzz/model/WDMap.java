@@ -20,7 +20,7 @@ import ovh.exception.watchdogzz.data.User;
 
 public class WDMap extends Observable implements WDDrawable, Observer {
     private WDObjet map;
-    private HashMap<Integer,WDArtefact> markers;
+    private HashMap<String,WDArtefact> markers;
     private Context context;
 
     // Constructor - Setup the data-array buffers
@@ -34,7 +34,7 @@ public class WDMap extends Observable implements WDDrawable, Observer {
         //markers.add(new Pair(new WDArtefact(context), new float[3]));
     }
 
-    public void addMarker(int id, WDArtefact art) {
+    public void addMarker(String id, WDArtefact art) {
         markers.put(id,art);
     }
 

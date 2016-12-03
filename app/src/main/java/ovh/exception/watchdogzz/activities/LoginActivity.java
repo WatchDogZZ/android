@@ -7,25 +7,37 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.AsyncTask;
-import android.os.Build.VERSION;
-import android.os.Build;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.ArrayList;
 
 import ovh.exception.watchdogzz.R;
+import ovh.exception.watchdogzz.data.GPSPosition;
+import ovh.exception.watchdogzz.data.User;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private enum Permissions {
         REQUEST_GET_ACCOUNTS,
@@ -34,13 +46,20 @@ public class LoginActivity extends AppCompatActivity {
         REQUEST_ACCESS_FINE_LOCATION,
         REQUEST_ACCESS_COARSE_LOCATION,
         REQUEST_ACCESS_NETWORK_STATE,
-        REQUEST_VIBRATE
+        REQUEST_VIBRATE,
+        REQUEST_INTERNET
     }
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+
+    // Sign in information
+    private GoogleSignInOptions mGoogleSignInOptions;
+    private GoogleApiClient mGoogleApiClient;
+    private final int RC_SIGN_IN = 10;
+    private User mUser;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -54,8 +73,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         that = this;
+        mUser = new User("","","",null,true,new GPSPosition(0,0,0));
         mProgressView = findViewById(R.id.login_progress);
-        mLoginFormView = findViewById(R.id.button);
+        mLoginFormView = findViewById(R.id.sign_in_button);
 
         // Check READ_CONTACTS
         if (ContextCompat.checkSelfPermission(this,
@@ -101,12 +121,38 @@ public class LoginActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.VIBRATE},
                     Permissions.REQUEST_VIBRATE.ordinal());
         }
+
+        // Check INTERNET
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.INTERNET},
+                    Permissions.REQUEST_INTERNET.ordinal());
+        }
+
+        // Configure sign-in to request the user's ID, email address, and basic profile.
+        mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestId()
+                .requestProfile()
+                .requestIdToken(getString(R.string.server_client_id))
+                .build();
+
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+// options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, mGoogleSignInOptions)
+                .build();
+
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
     }
 
     protected void connect(View v) {
         showProgress(true);
-        mAuthTask = new UserLoginTask("@", "bulle");
-        mAuthTask.execute((Void) null);
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     /**
@@ -154,6 +200,51 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.sign_in_button:
+                connect(view);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            mUser.setEmail(acct.getEmail());
+            mUser.setName(acct.getDisplayName());
+            mUser.setId(acct.getId());
+            mUser.setPhotoUrl(acct.getPhotoUrl());
+            mUser.setIdToken(acct.getIdToken());
+
+            mAuthTask = new UserLoginTask(mUser.getEmail(), mUser.getName());
+            mAuthTask.execute((Void) null);
+         } else {
+            // Signed out, show unauthenticated UI.
+            Log.d("SIGN IN", "Sign in failed.");
+        }
+    }
+
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -178,7 +269,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 return false;
             }
-
+/*
             ArrayList<String> bob = new ArrayList<String>();
             bob.add("@:bulle");
 
@@ -188,7 +279,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }
-            }
+            }*/
 
             // TODO: register the new account here.
             return true;
@@ -203,6 +294,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent;
                 intent = new Intent(that, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("user",mUser);
                 startActivity(intent);
                 finish();
             } else {

@@ -30,26 +30,27 @@ public class UserManager extends Observable {
         this.notifyObservers(user);
     }
 
-    public void removeUser(int id) {
+    public void removeUser(String id) {
         int index = searchById(id);
         this.users.remove(index);
         this.setChanged();
         this.notifyObservers(new Integer(id));
     }
 
-    public void updateUser(int id, User user) {
+    public void updateUser(String id, User user) {
         int index = searchById(id);
         this.users.get(index).setPosition(user.getPosition());
         this.setChanged();
         this.notifyObservers(this.users.get(index));
     }
 
-    private int searchById(int id) {
+    private int searchById(String id) {
         int index = -1;
-        int i = 0, j = 0;
+        int i = 0;
+        String j = "";
         while(i < users.size() && index==-1) {
             j = users.get(i).getId();
-            index = j==id?j:-1;
+            index = j.equals(id)?i:-1;
             i++;
         }
         return index;
