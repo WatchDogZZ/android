@@ -20,10 +20,11 @@ public class User implements Parcelable {
     private GPSPosition position;
 
 
-    public User(String id, String name, String email, Uri photoUrl, boolean me, GPSPosition pos) {
+    public User(String id, String name, String email, String idToken, Uri photoUrl, boolean me, GPSPosition pos) {
         this.setId(id);
         this.setName(name);
         this.setEmail(email);
+        this.setIdToken(idToken);
         this.setPhotoUrl(photoUrl);
         this.setMe(me);
         this.setPosition(pos);
@@ -33,6 +34,7 @@ public class User implements Parcelable {
         this.setId(p.readString());
         this.setName(p.readString());
         this.setEmail(p.readString());
+        this.setIdToken(p.readString());
         this.setPhotoUrl(Uri.parse(p.readString()));
         this.setMe(Boolean.valueOf(p.readString()));
         this.setPosition(new GPSPosition(p.readFloat(),p.readFloat(),p.readFloat()));
@@ -104,6 +106,7 @@ public class User implements Parcelable {
         parcel.writeString(this.getId());
         parcel.writeString(this.getName());
         parcel.writeString(this.getEmail());
+        parcel.writeString(this.getIdToken());
         parcel.writeString(this.getPhotoUrl().toString());
         parcel.writeString(String.valueOf(this.isMe()));
         parcel.writeFloat(this.getPosition().getLatitude());

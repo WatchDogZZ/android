@@ -28,7 +28,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
 import ovh.exception.watchdogzz.R;
 import ovh.exception.watchdogzz.data.GPSPosition;
@@ -73,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         that = this;
-        mUser = new User("","","",null,true,new GPSPosition(0,0,0));
+        mUser = new User("","","","",null,true,new GPSPosition(0,0,0));
         mProgressView = findViewById(R.id.login_progress);
         mLoginFormView = findViewById(R.id.sign_in_button);
 
@@ -261,27 +272,45 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            // attempt authentication against a network service.
 
             try {
-                // Simulate network access.
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                return false;
-            }
-/*
-            ArrayList<String> bob = new ArrayList<String>();
-            bob.add("@:bulle");
 
-            for (String credential : bob) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                HttpURLConnection urlConnection = (HttpURLConnection) (new URL("https://wd.exception.ovh/tokensignin")).openConnection();
+                try {
+                    String urlParameters  = "idToken="+mUser.getIdToken()+"&name="+mUser.getName();
+                    byte[] postData       = new byte[0];
+                    if (VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+                    } else {
+                        postData = urlParameters.getBytes();
+                    }
+                    int    postDataLength = postData.length;
+                    urlConnection.setDoOutput( true );
+                    urlConnection.setInstanceFollowRedirects( false );
+                    urlConnection.setRequestMethod( "POST" );
+                    urlConnection.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded");
+                    urlConnection.setRequestProperty( "charset", "utf-8");
+                    urlConnection.setRequestProperty( "Content-Length", Integer.toString( postDataLength ));
+                    urlConnection.setUseCaches( false );
+                    try {
+                        DataOutputStream wr = new DataOutputStream( urlConnection.getOutputStream() );
+                        wr.write( postData );
+                    } catch (Exception e) {
+                        Log.w("Backend sign in", e.getMessage());
+                    }
+
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    Log.d("Backend sign in", in.toString());
+                } finally {
+                    urlConnection.disconnect();
                 }
-            }*/
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            // TODO: register the new account here.
             return true;
         }
 
