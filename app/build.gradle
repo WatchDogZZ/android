@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "ovh.exception.watchdogzz"
-        minSdkVersion 11
+        minSdkVersion 12
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -37,6 +37,9 @@ dependencies {
     // Dependency for Google Sign-In
     compile 'com.google.android.gms:play-services-auth:10.0.0'
     compile 'com.google.firebase:firebase-appindexing:10.0.0'
+
+    // Dependency for web services
+    compile 'com.android.volley:volley:1.0.0'
 
     testCompile 'junit:junit:4.12'
 }

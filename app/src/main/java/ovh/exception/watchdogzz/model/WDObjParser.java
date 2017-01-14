@@ -55,7 +55,7 @@ public class WDObjParser {
                     if(receiveString.contains("v ")) {	// lorsque l'on trouve un sommet
                         float[] line = parseFloat(receiveString.substring(2).split(" "),3);
                         for(int f = 0 ; f < line.length ; ++f)
-                            line[f] = line[f]/1000;
+                            line[f] = line[f];
                         vertices.add(line);
                     } else if(receiveString.contains("vt ")) {	// lorsque l'on trouve un sommet de texture
                         try {

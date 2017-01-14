@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -19,6 +20,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.net.URL;
 
@@ -26,19 +29,28 @@ import ovh.exception.watchdogzz.R;
 import ovh.exception.watchdogzz.data.GPSPosition;
 import ovh.exception.watchdogzz.data.User;
 import ovh.exception.watchdogzz.data.UserManager;
+import ovh.exception.watchdogzz.network.DownloadImageTask;
+import ovh.exception.watchdogzz.network.IWSConsumer;
 import ovh.exception.watchdogzz.network.NetworkManager;
 import ovh.exception.watchdogzz.network.PostitionManager;
+import ovh.exception.watchdogzz.network.WebServiceTask;
 import ovh.exception.watchdogzz.view.WDRenderer;
 import ovh.exception.watchdogzz.view.WDSurfaceView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IWSConsumer {
 
     private WDSurfaceView glView;
     private UserManager users;
     private PostitionManager postitionManager;
     private NetworkManager networkManager;
 
-    private Bitmap bmp;
+    @Override
+    public void consume(JSONObject json) {
+        if(json!=null)
+            Snackbar.make(findViewById(R.id.content_main), json.toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        else
+            Log.w("COUCOU", "JSON is null");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +66,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Position: " + users.getMe().getPosition(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                new WebServiceTask(MainActivity.this, MainActivity.this).execute("https://randomuser.me/api");
             }
         });
 
@@ -66,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         this.postitionManager = new PostitionManager(this);
-        this.networkManager = new NetworkManager();
+        this.networkManager = NetworkManager.getInstance(this.getApplicationContext());
         setUsers(new UserManager());
         this.users.setMe((User) getIntent().getParcelableExtra("user"));
         getUsers().addObserver(renderer.getMap());
@@ -80,29 +93,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 t.setText(users.getMe().getName());
                 t = (TextView) findViewById(R.id.email_adresse);
                 t.setText(users.getMe().getEmail());
-
-                new AsyncTask<Void, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(Void... params) {
-                        try {
-                            InputStream in = new URL(users.getMe().getPhotoUrl().getPath()).openStream();
-                            bmp = BitmapFactory.decodeStream(in);
-                        } catch (Exception e) {
-                            // log error
-                        }
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Void result) {
-                        if (bmp != null) {
-                            ImageView im = (ImageView) findViewById(R.id.photo_profil);
-                            im.setImageBitmap(bmp);
-                        }
-                    }
-
-                }.execute();
-                //im.setImageURI(users.getMe().getPhotoUrl());
+                ImageView im = (ImageView) findViewById(R.id.photo_profil);
+                new DownloadImageTask(im).execute(users.getMe().getPhotoUrl().toString());
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -155,15 +147,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.rv_mode) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.normal_mode) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.configuration) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.share_position) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.send_message) {
 
         }
 

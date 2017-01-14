@@ -15,13 +15,10 @@ public class GPSPosition {
         this.setLongitude(longitude);
     }
 
-    public float[] getForMap(float[] origin, float scale, float angle) {
-        float[] res = { (getLatitude() -origin[0])*scale, (getLongitude() -origin[1])*scale, (getAltitude() -origin[2])*scale };
+    public float[] getForMap(float[] origin, float scale) {
+        float[] res = { (getLatitude() -origin[1])*scale, (getLongitude() -origin[0])*scale, (getAltitude() -origin[2])*scale };
 
-        // TODO manque la rotation
-        float[] resTemp = {getLatitude(), getLongitude(), getAltitude()};
-
-        return resTemp;
+        return res;
     }
 
     @Override

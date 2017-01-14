@@ -38,24 +38,33 @@ public class WDMap extends Observable implements WDDrawable, Observer {
         markers.put(id,art);
     }
 
-    // TODO replace it
-    float [] origin = {0,0,0};
+    // intersection of bat a and b
+    float [] origin = {45.759231f, 3.111185f, 405.5f};
+    //float [] origin = {0,0,0};
 
 
     // Render this shape
     public void draw(GL10 gl) {
         // dessin de la map
+        gl.glPushMatrix();
+        gl.glPushMatrix();
+        gl.glRotatef(180.0f,0.0f,1.0f,0.0f);
+        gl.glRotatef(57.55046185f,0.0f,0.0f,1.0f);
+        gl.glScalef(0.002f,0.002f,0.002f);
+        gl.glTranslatef(-1682f,-1016f,0); // position dans le mesh du point d'origine
         map.draw(gl);
+        gl.glPopMatrix();
 
         // dessin des marqueurs
         for (WDArtefact x : markers.values()) {
             gl.glPushMatrix();
-            float[] tmp = x.getPosition().getForMap(origin,1,0);
-            gl.glTranslatef(tmp[0],tmp[1], tmp[2]);
+            float[] tmp = x.getPosition().getForMap(origin,3169.8f);
+            gl.glTranslatef(tmp[0],tmp[1], 405.5f);
             Log.d("ME", x.getPosition().toString());
             x.draw(gl);
             gl.glPopMatrix();
         }
+        gl.glPopMatrix();
     }
 
     @Override

@@ -3,15 +3,15 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/rv_mode"
             android:icon="@drawable/ic_menu_camera"
             android:title="RV mode" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/normal_mode"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Normal mode" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/configuration"
             android:icon="@drawable/ic_menu_manage"
             android:title="Configuration" />
     </group>
@@ -19,11 +19,11 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/share_position"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share position" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/send_message"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send message" />
         </menu>

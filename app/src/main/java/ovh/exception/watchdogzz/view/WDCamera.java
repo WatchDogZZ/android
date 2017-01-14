@@ -37,7 +37,7 @@ public class WDCamera {
      * @param gl
      */
     public void watch(GL10 gl) {
-        gl.glTranslatef(x(),y(), z());
+        gl.glTranslatef(x(),y(),z());
     }
 
     public float x() {

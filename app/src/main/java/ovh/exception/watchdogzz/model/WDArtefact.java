@@ -18,7 +18,7 @@ public class WDArtefact implements WDDrawable {
 
     // Constructor - Setup the data-array buffers
     public WDArtefact(Context context) {
-        objet = new WDObjet(WDObjet.Shape2D.CIRCLE, 0,0,0.125f,0.1250f,64);
+        objet = new WDObjet(WDObjet.Shape.CIRCLE, 0,0,0,0.05f,64);
     }
 
     // Render this shape
