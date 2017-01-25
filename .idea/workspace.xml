@@ -17,8 +17,6 @@
     <list default="true" id="4bf3aaee-1606-4dae-860b-4bbcd25ee99d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/activities/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/activities/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/network/PostWebServiceTask.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/network/PostWebServiceTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/network/PostitionManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/network/PostitionManager.java" />
     </list>
     <ignored path="android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,21 +57,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/activities/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="283" column="1" selection-start-line="283" selection-start-column="1" selection-end-line="283" selection-end-column="1" />
+            <state relative-caret-position="289">
+              <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PostitionManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PostitionManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/network/PostitionManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+            <state relative-caret-position="343">
+              <caret line="42" column="94" selection-start-line="42" selection-start-column="94" selection-end-line="42" selection-end-column="94" />
               <folding />
             </state>
           </provider>
@@ -2138,8 +2136,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/network/WebServiceTask.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/network/PostWebServiceTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/activities/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/network/PostitionManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/activities/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -2758,7 +2756,14 @@
       <option name="project" value="LOCAL" />
       <updated>1485345979437</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Ajout du logout fragile&#10;Attention à l'ordre lattitude, longitude&#10;">
+      <created>1485361440392</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1485361440392</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2832,7 +2837,8 @@
     <MESSAGE value="Envoi du token à https://wd.exception.ovh/tokensignin" />
     <MESSAGE value="Ajout des fonctionnalités réseaux.&#10;Ajout du bouton de débugage.&#10;Position GPS utilisateur.&#10;Connexion Google." />
     <MESSAGE value="Récupération des utilisateurs sur le web service" />
-    <option name="LAST_COMMIT_MESSAGE" value="Récupération des utilisateurs sur le web service" />
+    <MESSAGE value="Ajout du logout fragile&#10;Attention à l'ordre lattitude, longitude&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout du logout fragile&#10;Attention à l'ordre lattitude, longitude&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3209,14 +3215,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/activities/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="283" column="1" selection-start-line="283" selection-start-column="1" selection-end-line="283" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/network/PostWebServiceTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
@@ -3230,8 +3228,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/network/PostitionManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        <state relative-caret-position="343">
+          <caret line="42" column="94" selection-start-line="42" selection-start-column="94" selection-end-line="42" selection-end-column="94" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ovh/exception/watchdogzz/activities/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
           <folding />
         </state>
       </provider>

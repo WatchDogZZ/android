@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Gson gson = new Gson();
             JUser[] serverUsers = new JUser[1];
             try {
-                Log.w("PLANT", json.toString());
                 serverUsers = gson.fromJson(json.getJSONArray("list").toString(), JUser[].class);
             } catch (JSONException e) {
                 e.printStackTrace();
