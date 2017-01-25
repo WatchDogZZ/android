@@ -24,6 +24,7 @@ public class PostWebServiceTask extends AsyncTask<String, Void, JSONObject> {
     private Context context;
     private Boolean isDone;
     private User me;
+    private JSONObject data = null;
 
     public PostWebServiceTask(Context context, IWSConsumer consumer, User me) {
         this.context = context;
@@ -34,6 +35,8 @@ public class PostWebServiceTask extends AsyncTask<String, Void, JSONObject> {
 
     protected JSONObject doInBackground(String... urls) {
         String url = urls[0];
+
+        JSONObject result = null;
 
         JSONObject request = new JSONObject();
         JSONArray loc = new JSONArray();
@@ -58,6 +61,7 @@ public class PostWebServiceTask extends AsyncTask<String, Void, JSONObject> {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("WS TASK", "Received: " + response.toString());
+                        data = response;
                         isDone = true;
                     }
                 }, new Response.ErrorListener() {
@@ -77,7 +81,9 @@ public class PostWebServiceTask extends AsyncTask<String, Void, JSONObject> {
 
         while(!isDone);
 
-        return request;
+        result = data;
+
+        return result;
     }
 
     protected void onPostExecute(JSONObject result) {

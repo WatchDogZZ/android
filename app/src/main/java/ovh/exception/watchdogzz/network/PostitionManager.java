@@ -39,8 +39,8 @@ public class PostitionManager {
                 // Called when a new location is found by the network location provider.
                 Log.d("POSITION GPS", location.toString());
                 thisActivity.getUsers().updateUser(thisActivity.getUsers().getMe().getId(),
-                        new User("","","","",null,true,new GPSPosition(  (float)location.getLatitude(),
-                                                                (float)location.getLongitude(),
+                        new User("","","","",null,true,new GPSPosition(  (float)location.getLongitude(),
+                                                                (float)location.getLatitude(),
                                                                 (float)location.getAltitude())));
             }
 
@@ -57,7 +57,7 @@ public class PostitionManager {
         if (ActivityCompat.checkSelfPermission(this.context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, locationListener);
     }
 
 
