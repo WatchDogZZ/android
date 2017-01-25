@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -12,13 +14,21 @@ import java.io.Serializable;
 
 public class User implements Parcelable {
     private String id;
+
     private String name;
     private String email;
     private String idToken;
     private Uri photoUrl;
     private boolean isMe;
+
+    private float[] location;
+
     private GPSPosition position;
 
+    public void constructAfterSerialized() {
+        if(location.length >= 3)
+            position = new GPSPosition(location[0],location[1],location[2]);
+    }
 
     public User(String id, String name, String email, String idToken, Uri photoUrl, boolean me, GPSPosition pos) {
         this.setId(id);

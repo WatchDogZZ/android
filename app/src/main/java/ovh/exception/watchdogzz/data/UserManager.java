@@ -44,6 +44,14 @@ public class UserManager extends Observable {
         this.notifyObservers(this.users.get(index));
     }
 
+    public boolean contains(User user) {
+        boolean res = false;
+        for (User u : this.getUsers()) {
+            res = (res||(u.getName()==user.getName()));
+        }
+        return res;
+    }
+
     private int searchById(String id) {
         int index = -1;
         int i = 0;

@@ -1,7 +1,6 @@
 package ovh.exception.watchdogzz.network;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -40,7 +39,7 @@ public class WebServiceTask extends AsyncTask<String, Void, JSONObject> {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("WS TASK", error.getMessage());
+                        Log.e("WS TASK", "#" + error.getMessage());
                         isDone = true;
                     }
                 });

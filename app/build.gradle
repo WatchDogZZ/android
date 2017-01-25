@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "ovh.exception.watchdogzz"
         minSdkVersion 12
@@ -40,6 +40,7 @@ dependencies {
 
     // Dependency for web services
     compile 'com.android.volley:volley:1.0.0'
+    compile 'com.google.code.gson:gson:2.8.0'
 
     testCompile 'junit:junit:4.12'
 }

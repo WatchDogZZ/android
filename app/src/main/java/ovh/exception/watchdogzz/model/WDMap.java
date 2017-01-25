@@ -39,7 +39,7 @@ public class WDMap extends Observable implements WDDrawable, Observer {
     }
 
     // intersection of bat a and b
-    float [] origin = {45.759231f, 3.111185f, 405.5f};
+    float [] origin = {45.759231f, 3.111185f, 0.0f};
     //float [] origin = {0,0,0};
 
 
@@ -59,7 +59,7 @@ public class WDMap extends Observable implements WDDrawable, Observer {
         for (WDArtefact x : markers.values()) {
             gl.glPushMatrix();
             float[] tmp = x.getPosition().getForMap(origin,3169.8f);
-            gl.glTranslatef(tmp[0],tmp[1], 405.5f);
+            gl.glTranslatef(tmp[0],tmp[1], 0.5f);
             Log.d("ME", x.getPosition().toString());
             x.draw(gl);
             gl.glPopMatrix();

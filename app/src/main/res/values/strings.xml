@@ -27,4 +27,7 @@
 
     <string name="server_client_id">933756986924-ont7s5iohrb9rm3nch8momvatsr4qp47.apps.googleusercontent.com</string>
 
+    <string name="send_to">Send your position to your friends.</string>
+    <string name="default_share_message">Hi, here is my position provided by WatchDogZZ: </string>
+
 </resources>

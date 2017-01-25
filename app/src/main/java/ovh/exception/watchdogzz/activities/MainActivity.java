@@ -1,5 +1,6 @@
 package ovh.exception.watchdogzz.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -20,6 +21,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -27,11 +31,13 @@ import java.net.URL;
 
 import ovh.exception.watchdogzz.R;
 import ovh.exception.watchdogzz.data.GPSPosition;
+import ovh.exception.watchdogzz.data.JUser;
 import ovh.exception.watchdogzz.data.User;
 import ovh.exception.watchdogzz.data.UserManager;
 import ovh.exception.watchdogzz.network.DownloadImageTask;
 import ovh.exception.watchdogzz.network.IWSConsumer;
 import ovh.exception.watchdogzz.network.NetworkManager;
+import ovh.exception.watchdogzz.network.PostWebServiceTask;
 import ovh.exception.watchdogzz.network.PostitionManager;
 import ovh.exception.watchdogzz.network.WebServiceTask;
 import ovh.exception.watchdogzz.view.WDRenderer;
@@ -46,8 +52,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void consume(JSONObject json) {
-        if(json!=null)
+        if(json!=null) {
             Snackbar.make(findViewById(R.id.content_main), json.toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Gson gson = new Gson();
+            JUser[] serverUsers = new JUser[1];
+            try {
+                serverUsers = gson.fromJson(json.getJSONArray("list").toString(), JUser[].class);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            for (JUser u : serverUsers) {    // on traite les nouveaux utilisateurs
+                User nouv = new User(u.name,u.name,"","",null,false, new GPSPosition(
+                        u.location.length > 2 ? u.location[0] : 0.0f,
+                        u.location.length > 2 ? u.location[1] : 0.0f,
+                        u.location.length > 2 ? u.location[2] : 0.0f));   // necessaire apres serialisation
+                if(u.name != users.getMe().getName()) {     // on ne s'update pas sois meme
+                    if (users.contains(nouv)) {         //  faire l'update
+                        users.updateUser(nouv.getName(), nouv);
+                    } else {                        // faire l'ajout
+                        users.addUser(nouv);
+                    }
+                }
+            }
+        }
         else
             Log.w("COUCOU", "JSON is null");
     }
@@ -68,7 +96,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 Snackbar.make(view, "Position: " + users.getMe().getPosition(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                new WebServiceTask(MainActivity.this, MainActivity.this).execute("https://randomuser.me/api");
+                new PostWebServiceTask(MainActivity.this, MainActivity.this, users.getMe()).execute("http://ec2-35-157-1-159.eu-central-1.compute.amazonaws.com/where");
+                new WebServiceTask(MainActivity.this, MainActivity.this).execute("http://ec2-35-157-1-159.eu-central-1.compute.amazonaws.com/users");
             }
         });
 
@@ -154,7 +183,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.configuration) {
 
         } else if (id == R.id.share_position) {
-
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, getResources().getText(R.string.default_share_message) + users.getMe().getPosition().toString());
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
         } else if (id == R.id.send_message) {
 
         }

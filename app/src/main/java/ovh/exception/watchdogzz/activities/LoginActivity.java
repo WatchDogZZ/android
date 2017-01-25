@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -323,7 +324,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 Intent intent;
                 intent = new Intent(that, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("user",mUser);
+                intent.putExtra("user", mUser);
                 startActivity(intent);
                 finish();
             } else {
