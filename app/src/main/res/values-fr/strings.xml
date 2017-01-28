@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WatchDogZZ</string>
+
+    <!-- Strings related to login -->
+    <string name="connect">Se connecter avec Google</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Mot de passe (optoinnel)</string>
+    <string name="title_activity_main">Activité principale</string>
+
+    <string name="navigation_drawer_open">Ouvrir la navigation</string>
+    <string name="navigation_drawer_close">Fermer la navigation</string>
+
+    <string name="action_settings">Options</string>
+
+    <!-- Strings related to main activity -->
+    <string name="description_logo_wdzz">"Logo de l'application WatchDogZZ."</string>
+    <string name="send_to">Envoyez votre position à vos amis.</string>
+    <string name="default_share_message">Salut, voici ma position fournie par WatchDogZZ : </string>
+</resources>

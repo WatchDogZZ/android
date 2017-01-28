@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "933756986924",
+    "project_id": "watchdogzz-debug"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933756986924:android:c7a71a2bd981b9eb",
+        "android_client_info": {
+          "package_name": "ovh.exception.watchdogzz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933756986924-v52rhof4skjmj9kprdm13tst684l5756.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ovh.exception.watchdogzz",
+            "certificate_hash": "9D649B1CBD804239FDAF0E24FB14742B7BDECC6A"
+          }
+        },
+        {
+          "client_id": "933756986924-ont7s5iohrb9rm3nch8momvatsr4qp47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKpQ3mgWWvT14QfFqIHKNLyzCu4uRDRfE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
