@@ -39,9 +39,9 @@ public class PostitionManager {
                 // Called when a new location is found by the network location provider.
                 Log.d("POSITION GPS", location.toString());
                 thisActivity.getUsers().updateUser(thisActivity.getUsers().getMe().getId(),
-                        new User("","","","",null,true,new GPSPosition(  (float)location.getLongitude(),
-                                                                (float)location.getLatitude(),
-                                                                (float)location.getAltitude())));
+                        new User("", "", "", "", null, true, new GPSPosition((float) location.getLongitude(),
+                                (float) location.getLatitude(),
+                                (float) location.getAltitude())));
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -54,11 +54,21 @@ public class PostitionManager {
             public void onProviderDisabled(String provider) {
             }
         };
+        this.start();
+    }
+
+    public void start() {
         if (ActivityCompat.checkSelfPermission(this.context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, locationListener);
     }
 
+    public void stop() {
+        if (ActivityCompat.checkSelfPermission(this.context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        locationManager.removeUpdates(locationListener);
+    }
 
 }
