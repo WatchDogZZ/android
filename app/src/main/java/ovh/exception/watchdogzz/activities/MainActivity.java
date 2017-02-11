@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         u.location.length > 2 ? u.location[0] : 0.0f,
                         u.location.length > 2 ? u.location[1] : 0.0f,
                         u.location.length > 2 ? u.location[2] : 0.0f));   // necessaire apres serialisation
-                if(u.name != users.getMe().getName()) {     // on ne s'update pas sois meme
+                if(!u.name.equals(users.getMe().getName())) {     // on ne s'update pas sois meme
                     if (users.contains(nouv)) {         //  faire l'update
                         users.updateUser(nouv.getName(), nouv);
                     } else {                        // faire l'ajout
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.postitionManager = new PostitionManager(this);
         this.networkManager = NetworkManager.getInstance(this.getApplicationContext());
         setUsers(new UserManager());
-        User futurMe = (User) getIntent().getParcelableExtra("user");
+        User futurMe = getIntent().getParcelableExtra("user");
         this.users.setMe(futurMe);
         getUsers().addObserver(renderer.getMap());
 
@@ -249,12 +249,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onPause() {
         super.onPause();
         glView.onPause();
+        this.postitionManager.stop();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         glView.onResume();
+        this.postitionManager.start();
     }
 
     @Override
