@@ -20,8 +20,9 @@ public class UserManager extends Observable {
         return users;
     }
 
-    public User getUser(int index) {
-        return users.get(index);
+    public User getUser(String id) {
+        int index = searchById(id);
+        return index==-1? null : users.get(index);
     }
 
     public void addUser(User user) {
@@ -34,12 +35,16 @@ public class UserManager extends Observable {
         int index = searchById(id);
         this.users.remove(index);
         this.setChanged();
-        this.notifyObservers(new Integer(id));
+        this.notifyObservers(id);
     }
 
     public void updateUser(String id, User user) {
         int index = searchById(id);
         this.users.get(index).setPosition(user.getPosition());
+        this.users.get(index).setName(user.getName());
+        this.users.get(index).setIdToken(user.getIdToken());
+        this.users.get(index).setEmail(user.getEmail());
+        this.users.get(index).setPhotoUrl(user.getPhotoUrl());
         this.setChanged();
         this.notifyObservers(this.users.get(index));
     }
