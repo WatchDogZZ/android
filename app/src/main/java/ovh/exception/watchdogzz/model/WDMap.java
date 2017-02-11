@@ -86,8 +86,8 @@ public class WDMap extends Observable implements WDDrawable, Observer {
                 ar.setInfo(u.getEmail());
                 markers.put(u.getId(),ar);
             }
-        } else if (data instanceof Integer) {   // suppression
-            int index = (int) data;
+        } else if (data instanceof String) {   // suppression
+            String index = (String) data;
             Log.d("ARTEFACT", "remove");
             if(markers.containsKey(index)) {
                 markers.remove(index);

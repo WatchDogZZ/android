@@ -5,11 +5,10 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 /**
- * Created by begarco on 25/01/2017.
+ * Serializable user for web service
  */
 
 public class JUser implements Serializable {
-
 
     @SerializedName("name")
     public String name;
