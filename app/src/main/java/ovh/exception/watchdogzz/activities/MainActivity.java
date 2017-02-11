@@ -142,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         User futurMe = getIntent().getParcelableExtra("user");
         this.users.setMe(futurMe);
         getUsers().addObserver(renderer.getMap());
+        //this.users.addUser(new User("tito","Bob","","",null,false, new GPSPosition(3.111185f, 45.759231f, 0.0f)));
+        //this.users.addUser(new User("tata","Alice","","",null,false, new GPSPosition(3.111185f, 45.759271f, 0.5f)));
 
 
         // login sur le serveur
