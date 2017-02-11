@@ -15,14 +15,21 @@ public class WDArtefact implements WDDrawable {
     private GPSPosition position;
     private String label;
     private String info;
+    private float r,g,b;
 
     // Constructor - Setup the data-array buffers
     public WDArtefact(Context context) {
-        objet = new WDObjet(WDObjet.Shape.CIRCLE, 0,0,0,0.05f,64);
+        this(context,"","");
+    }
+    public WDArtefact(Context context, String label, String info) {
+        this.objet = new WDObjet(WDObjet.Shape.CIRCLE, 0,0,0,0.05f,64);
+        this.setLabel(label);
+        this.setInfo(info);
     }
 
     // Render this shape
     public void draw(GL10 gl) {
+        gl.glColor4f(r,g,b,1.0f);
         objet.draw(gl);
     }
 
@@ -40,6 +47,12 @@ public class WDArtefact implements WDDrawable {
 
     public void setLabel(String label) {
         this.label = label;
+        int hash = label.hashCode();
+        r = (hash % 10)/10f;
+        hash/=10;
+        g = (hash % 10)/10f;
+        hash/=10;
+        b = (hash % 10)/10f;
     }
 
     public String getInfo() {

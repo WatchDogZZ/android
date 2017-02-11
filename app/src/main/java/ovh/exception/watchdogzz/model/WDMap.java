@@ -61,6 +61,7 @@ public class WDMap extends Observable implements WDDrawable, Observer {
             float[] tmp = x.getPosition().getForMap(origin,3169.8f);
             gl.glTranslatef(tmp[0],tmp[1], 0.5f);
             Log.d("ME", x.getPosition().toString());
+
             x.draw(gl);
             gl.glPopMatrix();
         }
