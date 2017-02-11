@@ -133,6 +133,7 @@ public class WDRenderer implements Renderer {
         gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SPECULAR, mat_specular_buf);
         // Specular exponent 0~128 less rough
         gl.glMaterialf(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, 96.0f);
+        gl.glEnable ( GL10.GL_COLOR_MATERIAL );
 
         //The position of the light source
         float[] light_position = {mLightX, mLightY, mLightZ, 0.0f};

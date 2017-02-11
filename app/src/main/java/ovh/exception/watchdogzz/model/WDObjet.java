@@ -14,9 +14,8 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 /**
- * Created by begarco on 19/11/2016.
+ * Encapsulation of OpenGL 3D Objects
  */
-
 public class WDObjet implements WDDrawable {
     private FloatBuffer vertexBuffer;  // Buffer for vertex-array
     private ByteBuffer indexBuffer;    // Buffer for index-array
