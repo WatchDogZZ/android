@@ -246,7 +246,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             mUser.setEmail(acct.getEmail());
             mUser.setName(acct.getDisplayName());
             mUser.setId(acct.getId());
-            mUser.setPhotoUrl(acct.getPhotoUrl());
+            mUser.setPhotoUrl(acct.getPhotoUrl().toString());
             mUser.setIdToken(acct.getIdToken());
 
             mAuthTask = new UserLoginTask(mUser.getEmail(), mUser.getName());

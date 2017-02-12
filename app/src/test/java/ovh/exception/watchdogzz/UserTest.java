@@ -20,7 +20,7 @@ public class UserTest {
     String name;
     String email;
     String idToken;
-    Uri photoUri;
+    String photoUri;
     Boolean me;
     GPSPosition pos;
 

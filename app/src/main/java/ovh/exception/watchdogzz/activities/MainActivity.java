@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,11 +51,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private UserManager users;
     private PostitionManager postitionManager;
     private NetworkManager networkManager;
+    String url = "";
 
     @Override
     public void consume(JSONObject json) {
         if(json!=null) {
-            Snackbar.make(findViewById(R.id.content_main), json.toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            //Snackbar.make(findViewById(R.id.content_main), json.toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
             Gson gson = new Gson();
             JUser[] serverUsers = new JUser[1];
             try {
@@ -62,33 +64,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-/**
-            for (String s : serverUsernames) {
-                try {
-                    User tmpU = new User(Integer.toString(s.length()),s,"","",null,false,new GPSPosition(0f,0f,0f));
-                    new WebServiceTask(MainActivity.this, new IWSConsumer() {
-                        @Override
-                        public void consume(JSONObject json) {
-                            Gson gson = new Gson();
-                            JUser u = gson.fromJson(json.toString(), JUser.class);
-                            User nouv = new User(Integer.toString(u.name.length()),u.name,"","",null,false, new GPSPosition(
-                                    u.location.length > 2 ? u.location[0] : 0.0f,
-                                    u.location.length > 2 ? u.location[1] : 0.0f,
-                                    u.location.length > 2 ? u.location[2] : 0.0f));   // necessaire apres serialisation
-                            if(u.name != users.getMe().getName()) {     // on ne s'update pas sois meme
-                                if (users.contains(nouv)) {         //  faire l'update
-                                    users.updateUser(nouv.getName(), nouv);
-                                } else {                        // faire l'ajout
-                                    users.addUser(nouv);
-                                }
-                            }
-                        }
-                    }).execute("http://ec2-35-157-1-159.eu-central-1.compute.amazonaws.com/where");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }**/
 
             for (JUser u : serverUsers) {    // on traite les nouveaux utilisateurs
                 User nouv = new User(Integer.toString(u.name.length()),u.name,"","",null,false, new GPSPosition(
@@ -125,8 +100,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 Snackbar.make(view, "Position: " + users.getMe().getPosition(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                new PostWebServiceTask(MainActivity.this, MainActivity.this, users.getMe()).execute("http://ec2-35-157-1-159.eu-central-1.compute.amazonaws.com/where");
-                new WebServiceTask(MainActivity.this, MainActivity.this).execute("http://ec2-35-157-1-159.eu-central-1.compute.amazonaws.com/where");
+                new PostWebServiceTask(MainActivity.this, MainActivity.this, users.getMe()).execute(R.string.server+"/where");
+                new WebServiceTask(MainActivity.this, MainActivity.this).execute(R.string.server+"/where");
             }
         });
 
@@ -141,9 +116,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setUsers(new UserManager());
         User futurMe = getIntent().getParcelableExtra("user");
         this.users.setMe(futurMe);
+        this.url = users.getMe().getPhotoUrl();
         getUsers().addObserver(renderer.getMap());
-        //this.users.addUser(new User("tito","Bob","","",null,false, new GPSPosition(3.111185f, 45.759231f, 0.0f)));
-        //this.users.addUser(new User("tata","Alice","","",null,false, new GPSPosition(3.111185f, 45.759271f, 0.5f)));
+        this.users.addUser(new User("tito","Bob","bob@mail.com","","http://www.superaktif.net/wp-content/upLoads/2011/07/Han.Solo_.jpg",false, new GPSPosition(3.111185f, 45.759231f, 0.0f)));
+        this.users.addUser(new User("tata","Alice","alice@mail.com","","http://www.superaktif.net/wp-content/upLoads/2011/07/Han.Solo_.jpg",false, new GPSPosition(3.111185f, 45.759271f, 0.5f)));
 
 
         // login sur le serveur
@@ -158,10 +134,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                             }
                         }
-                    }, users.getMe()).execute("http://ec2-35-157-1-159.eu-central-1.compute.amazonaws.com/login");
+                    }, users.getMe()).execute(R.string.server+"/login");
                 }
             }
-        }, users.getMe()).execute("http://ec2-35-157-1-159.eu-central-1.compute.amazonaws.com/login");
+        }, users.getMe()).execute(R.string.server+"/login");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -173,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 t = (TextView) findViewById(R.id.email_adresse);
                 t.setText(users.getMe().getEmail());
                 ImageView im = (ImageView) findViewById(R.id.photo_profil);
-                new DownloadImageTask(im).execute(users.getMe().getPhotoUrl().toString());
+                Picasso.with(MainActivity.this).load(url).into(im);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -200,8 +176,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         t.setText(this.users.getMe().getName());
         t = (TextView) findViewById(R.id.email_adresse);
         t.setText(this.users.getMe().getEmail());
-        ImageView im = (ImageView) findViewById(R.id.photo_profil);
-        im.setImageURI(this.getUsers().getMe().getPhotoUrl());
         return true;
     }
 
@@ -240,6 +214,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
         } else if (id == R.id.send_message) {
 
+        } else if (id == R.id.users_list) {
+            Intent masterViewIntent = new Intent(MainActivity.this, UserListActivity.class);
+            masterViewIntent.putExtra("users", users.getUsers());
+            masterViewIntent.putExtra("user", users.getMe());
+            startActivity(masterViewIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -269,12 +248,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onStop() {
         super.onStop();
-        new WebServiceTask(MainActivity.this, new IWSConsumer() {
+        new PostWebServiceTask(MainActivity.this, new IWSConsumer() {
             @Override
             public void consume(JSONObject json) {
 
             }
-        }).execute("http://ec2-35-157-1-159.eu-central-1.compute.amazonaws.com/logout/");
+        }, users.getMe()).execute(R.string.server+"/logout");
     }
 
     public UserManager getUsers() {
