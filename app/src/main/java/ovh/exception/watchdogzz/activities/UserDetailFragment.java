@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 import ovh.exception.watchdogzz.R;
 import ovh.exception.watchdogzz.activities.dummy.DummyContent;
 import ovh.exception.watchdogzz.data.User;
+import ovh.exception.watchdogzz.data.UserManager;
+import ovh.exception.watchdogzz.view.WDRenderer;
+import ovh.exception.watchdogzz.view.WDSurfaceView;
 
 /**
  * A fragment representing a single User detail screen.
@@ -43,10 +47,7 @@ public class UserDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
+        if (null==savedInstanceState && getArguments().containsKey(ARG_ITEM)) {
             mItem = getArguments().getParcelable(ARG_ITEM);
 
             Activity activity = this.getActivity();
@@ -62,11 +63,18 @@ public class UserDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.user_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
+        WDSurfaceView glView = (WDSurfaceView) rootView.findViewById(R.id.user_map);
+        WDRenderer renderer = new WDRenderer(getActivity());
+        glView.setRenderer(renderer);
+        UserManager um = new UserManager();
+        um.addObserver(renderer.getMap());
+
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.user_detail)).setText(mItem.getPosition().toString());
+            //((TextView) rootView.findViewById(R.id.user_detail)).setText(mItem.getPosition().toString());
+            um.addUser(mItem);
         }
 
         return rootView;
     }
+
 }

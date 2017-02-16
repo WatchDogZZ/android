@@ -31,13 +31,14 @@
     <string name="default_share_message">Hi, here is my position provided by WatchDogZZ: </string>
     <string name="title_user_list">Users</string>
     <string name="title_user_detail">User Detail</string>
-    <string name="server">http://ec2-35-157-1-159.eu-central-1.compute.amazonaws.com</string>
+    <string name="server">http://watchdogzz.ddns.net</string>
     <string name="rv_mode">RV mode</string>
     <string name="normal_mode">Normal mode</string>
     <string name="configuration">Configuration</string>
     <string name="communicate">Communicate</string>
     <string name="share_position">Share position</string>
     <string name="send_message">Send message</string>
-    <string name="coming_soon">Coming soon...</string>
+    <string name="coming_soon">Coming soon…</string>
+    <string name="users_list">Users\' list</string>
 
 </resources>

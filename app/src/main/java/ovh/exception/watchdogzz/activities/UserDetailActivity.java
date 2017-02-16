@@ -12,6 +12,10 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 import ovh.exception.watchdogzz.R;
+import ovh.exception.watchdogzz.data.User;
+import ovh.exception.watchdogzz.data.UserManager;
+import ovh.exception.watchdogzz.view.WDRenderer;
+import ovh.exception.watchdogzz.view.WDSurfaceView;
 
 /**
  * An activity representing a single User detail screen. This
@@ -58,6 +62,9 @@ public class UserDetailActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
             arguments.putString(UserDetailFragment.ARG_ITEM_ID,
                     getIntent().getStringExtra(UserDetailFragment.ARG_ITEM_ID));
+            arguments.putParcelable(UserDetailFragment.ARG_ITEM,
+                    getIntent().getParcelableExtra(UserDetailFragment.ARG_ITEM));
+
             UserDetailFragment fragment = new UserDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

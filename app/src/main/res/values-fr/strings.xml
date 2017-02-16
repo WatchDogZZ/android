@@ -21,11 +21,12 @@
     <!-- Menu -->
     <string name="title_user_list">Utilisateurs</string>
     <string name="title_user_detail">Détails</string>
-    <string name="server">http://ec2-35-157-1-159.eu-central-1.compute.amazonaws.com</string>
     <string name="rv_mode">Mode RV</string>
+    <string name="server">http://watchdogzz.ddns.net</string>
     <string name="normal_mode">Mode normal</string>
     <string name="configuration">Configuration</string>
     <string name="communicate">Communication</string>
     <string name="share_position">Partager la position</string>
     <string name="send_message">Envoyer un message</string>
+    <string name="users_list">Les utilisateurs</string>
 </resources>

@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private UserManager users;
     private PostitionManager postitionManager;
     private NetworkManager networkManager;
-    String url = "";
 
     @Override
     public void consume(JSONObject json) {
@@ -100,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 Snackbar.make(view, "Position: " + users.getMe().getPosition(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                new PostWebServiceTask(MainActivity.this, MainActivity.this, users.getMe()).execute(R.string.server+"/where");
-                new WebServiceTask(MainActivity.this, MainActivity.this).execute(R.string.server+"/where");
+                new PostWebServiceTask(MainActivity.this, MainActivity.this, users.getMe()).execute(getString(R.string.server)+"/where");
+                new WebServiceTask(MainActivity.this, MainActivity.this).execute(getString(R.string.server)+"/where");
             }
         });
 
@@ -115,12 +114,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.networkManager = NetworkManager.getInstance(this.getApplicationContext());
         setUsers(new UserManager());
         User futurMe = getIntent().getParcelableExtra("user");
-        this.users.setMe(futurMe);
-        this.url = users.getMe().getPhotoUrl();
         getUsers().addObserver(renderer.getMap());
+        this.users.setMe(futurMe);
+
+        /** TODO supppress stub **/
         this.users.addUser(new User("tito","Bob","bob@mail.com","","http://www.superaktif.net/wp-content/upLoads/2011/07/Han.Solo_.jpg",false, new GPSPosition(3.111185f, 45.759231f, 0.0f)));
         this.users.addUser(new User("tata","Alice","alice@mail.com","","http://www.superaktif.net/wp-content/upLoads/2011/07/Han.Solo_.jpg",false, new GPSPosition(3.111185f, 45.759271f, 0.5f)));
-
+        /******************************************************/
 
         // login sur le serveur
         new PostWebServiceTask(MainActivity.this, new IWSConsumer() {
@@ -134,10 +134,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                             }
                         }
-                    }, users.getMe()).execute(R.string.server+"/login");
+                    }, users.getMe()).execute(getString(R.string.server)+"/login");
                 }
             }
-        }, users.getMe()).execute(R.string.server+"/login");
+        }, users.getMe()).execute(getString(R.string.server)+"/login");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -145,11 +145,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 TextView t = (TextView) findViewById(R.id.complete_name);
-                t.setText(users.getMe().getName());
+                User u = MainActivity.this.getUsers().getMe();
+                t.setText(u.getName());
                 t = (TextView) findViewById(R.id.email_adresse);
-                t.setText(users.getMe().getEmail());
+                t.setText(u.getEmail());
                 ImageView im = (ImageView) findViewById(R.id.photo_profil);
-                Picasso.with(MainActivity.this).load(url).into(im);
+                Picasso.with(MainActivity.this).load(u.getPhotoUrl()).into(im);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -253,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void consume(JSONObject json) {
 
             }
-        }, users.getMe()).execute(R.string.server+"/logout");
+        }, users.getMe()).execute(getString(R.string.server)+"/logout");
     }
 
     public UserManager getUsers() {

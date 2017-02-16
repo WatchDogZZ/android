@@ -38,10 +38,11 @@ public class PostitionManager {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
                 Log.d("POSITION GPS", location.toString());
-                thisActivity.getUsers().updateUser(thisActivity.getUsers().getMe().getId(),
-                        new User("", "", "", "", null, true, new GPSPosition((float) location.getLongitude(),
-                                (float) location.getLatitude(),
-                                (float) location.getAltitude())));
+                User currentUser = thisActivity.getUsers().getMe();
+                currentUser.setPosition(new GPSPosition((float) location.getLongitude(),
+                        (float) location.getLatitude(),
+                        (float) location.getAltitude()));
+                thisActivity.getUsers().updateUserPosition(currentUser.getId(), currentUser);
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
