@@ -17,4 +17,16 @@
     <string name="description_logo_wdzz">"Logo de l'application WatchDogZZ."</string>
     <string name="send_to">Envoyez votre position à vos amis.</string>
     <string name="default_share_message">Salut, voici ma position fournie par WatchDogZZ : </string>
+
+    <!-- Menu -->
+    <string name="title_user_list">Utilisateurs</string>
+    <string name="title_user_detail">Détails</string>
+    <string name="rv_mode">Mode RV</string>
+    <string name="server">http://watchdogzz.ddns.net</string>
+    <string name="normal_mode">Mode normal</string>
+    <string name="configuration">Configuration</string>
+    <string name="communicate">Communication</string>
+    <string name="share_position">Partager la position</string>
+    <string name="send_message">Envoyer un message</string>
+    <string name="users_list">Les utilisateurs</string>
 </resources>

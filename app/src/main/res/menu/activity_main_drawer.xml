@@ -3,29 +3,33 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/rv_mode"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="RV mode" />
-        <item
             android:id="@+id/normal_mode"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Normal mode" />
+            android:title="@string/normal_mode" />
+        <item
+            android:id="@+id/users_list"
+            android:icon="@drawable/logo"
+            android:title="@string/users_list" />
+        <item
+            android:id="@+id/rv_mode"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/rv_mode" />
         <item
             android:id="@+id/configuration"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Configuration" />
+            android:title="@string/configuration" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/communicate">
         <menu>
             <item
                 android:id="@+id/share_position"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share position" />
+                android:title="@string/share_position" />
             <item
                 android:id="@+id/send_message"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send message" />
+                android:title="@string/send_message" />
         </menu>
     </item>
 

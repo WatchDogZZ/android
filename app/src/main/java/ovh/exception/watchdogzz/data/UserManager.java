@@ -77,4 +77,11 @@ public class UserManager extends Observable {
         this.me = me;
         this.addUser(me);
     }
+
+    public void updateUserPosition(String id, User user) {
+        int index = searchById(id);
+        this.users.get(index).setPosition(user.getPosition());
+        this.setChanged();
+        this.notifyObservers(this.users.get(index));
+    }
 }
