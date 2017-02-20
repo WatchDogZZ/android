@@ -1,7 +1,5 @@
 package ovh.exception.watchdogzz;
 
-import android.net.Uri;
-
 import org.junit.Before;
 import org.junit.Test;
 

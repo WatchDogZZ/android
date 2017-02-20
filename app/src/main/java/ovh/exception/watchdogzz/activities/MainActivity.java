@@ -1,11 +1,8 @@
 package ovh.exception.watchdogzz.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -21,25 +18,23 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-
 import ovh.exception.watchdogzz.R;
 import ovh.exception.watchdogzz.data.GPSPosition;
 import ovh.exception.watchdogzz.data.JUser;
 import ovh.exception.watchdogzz.data.User;
 import ovh.exception.watchdogzz.data.UserManager;
-import ovh.exception.watchdogzz.network.DownloadImageTask;
 import ovh.exception.watchdogzz.network.IWSConsumer;
 import ovh.exception.watchdogzz.network.NetworkManager;
-import ovh.exception.watchdogzz.network.PostWebServiceTask;
 import ovh.exception.watchdogzz.network.PostitionManager;
 import ovh.exception.watchdogzz.network.WebServiceTask;
 import ovh.exception.watchdogzz.view.WDRenderer;
@@ -51,37 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private UserManager users;
     private PostitionManager postitionManager;
     private NetworkManager networkManager;
-
-    @Override
-    public void consume(JSONObject json) {
-        if(json!=null) {
-            //Snackbar.make(findViewById(R.id.content_main), json.toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            Gson gson = new Gson();
-            JUser[] serverUsers = new JUser[1];
-            try {
-                serverUsers = gson.fromJson(json.getJSONArray("list").toString(), JUser[].class);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            for (JUser u : serverUsers) {    // on traite les nouveaux utilisateurs
-                User nouv = new User(Integer.toString(u.name.length()),u.name,"","",null,false, new GPSPosition(
-                        u.location.length > 2 ? u.location[0] : 0.0f,
-                        u.location.length > 2 ? u.location[1] : 0.0f,
-                        u.location.length > 2 ? u.location[2] : 0.0f));   // necessaire apres serialisation
-                if(!u.name.equals(users.getMe().getName())) {     // on ne s'update pas sois meme
-                    if (users.contains(nouv)) {         //  faire l'update
-                        users.updateUser(nouv.getName(), nouv);
-                    } else {                        // faire l'ajout
-                        users.addUser(nouv);
-                    }
-                }
-            }
-
-        }
-        else
-            Log.w("COUCOU", "JSON is null");
-    }
+    public boolean isSuccess = false, isFinished = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,13 +64,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 Snackbar.make(view, "Position: " + users.getMe().getPosition(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                new PostWebServiceTask(MainActivity.this, MainActivity.this, users.getMe()).execute(getString(R.string.server)+"/where");
-                new WebServiceTask(MainActivity.this, MainActivity.this).execute(getString(R.string.server)+"/where");
+                new WebServiceTask(MainActivity.this, null, users.getMe()).execute(getString(R.string.server) + "/where");
+                new WebServiceTask(MainActivity.this, MainActivity.this).execute(getString(R.string.server) + "/where");
             }
         });
-
-
-
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -118,26 +80,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.users.setMe(futurMe);
 
         /** TODO supppress stub **/
-        this.users.addUser(new User("tito","Bob","bob@mail.com","","http://www.superaktif.net/wp-content/upLoads/2011/07/Han.Solo_.jpg",false, new GPSPosition(3.111185f, 45.759231f, 0.0f)));
-        this.users.addUser(new User("tata","Alice","alice@mail.com","","http://www.superaktif.net/wp-content/upLoads/2011/07/Han.Solo_.jpg",false, new GPSPosition(3.111185f, 45.759271f, 0.5f)));
+        this.users.addUser(new User("tito", "Bob", "bob@mail.com", "", "http://www.superaktif.net/wp-content/upLoads/2011/07/Han.Solo_.jpg", false, new GPSPosition(3.111185f, 45.759231f, 0.0f)));
+        this.users.addUser(new User("tata", "Alice", "alice@mail.com", "", "http://www.superaktif.net/wp-content/upLoads/2011/07/Han.Solo_.jpg", false, new GPSPosition(3.111185f, 45.759271f, 0.5f)));
         /******************************************************/
 
         // login sur le serveur
-        new PostWebServiceTask(MainActivity.this, new IWSConsumer() {
-            @Override
-            public void consume(JSONObject json) {
-                if(json==null) {
-                    new PostWebServiceTask(MainActivity.this, new IWSConsumer() {
-                        @Override
-                        public void consume(JSONObject json) {
-                            if(json==null) {
-
-                            }
-                        }
-                    }, users.getMe()).execute(getString(R.string.server)+"/login");
-                }
-            }
-        }, users.getMe()).execute(getString(R.string.server)+"/login");
+        if(!login()) {
+            finish();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -247,14 +197,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        login();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
-        new PostWebServiceTask(MainActivity.this, new IWSConsumer() {
-            @Override
-            public void consume(JSONObject json) {
-
-            }
-        }, users.getMe()).execute(getString(R.string.server)+"/logout");
+        logout();
     }
 
     public UserManager getUsers() {
@@ -263,5 +214,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void setUsers(UserManager users) {
         this.users = users;
+    }
+
+    private boolean login() {
+        new WebServiceTask(MainActivity.this, null, users.getMe()).execute(getString(R.string.server) + "/login");
+        return true;
+    }
+
+    private void logout() {
+        new WebServiceTask(MainActivity.this, null, users.getMe()).execute(getString(R.string.server) + "/logout");
+    }
+
+    @Override
+    public void consume(JSONObject json) {
+        if (json != null) {
+            //Snackbar.make(findViewById(R.id.content_main), json.toString(), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            Gson gson = new Gson();
+            JUser[] serverUsers = new JUser[1];
+            try {
+                serverUsers = gson.fromJson(json.getJSONArray("list").toString(), JUser[].class);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            for (JUser u : serverUsers) {    // on traite les nouveaux utilisateurs
+                User nouv = new User(Integer.toString(u.name.length()), u.name, "", "", null, false, new GPSPosition(
+                        u.location.length > 2 ? u.location[0] : 0.0f,
+                        u.location.length > 2 ? u.location[1] : 0.0f,
+                        u.location.length > 2 ? u.location[2] : 0.0f));   // necessaire apres serialisation
+                if (!u.name.equals(users.getMe().getName())) {     // on ne s'update pas sois meme
+                    if (users.contains(nouv)) {         //  faire l'update
+                        users.updateUser(nouv.getName(), nouv);
+                    } else {                        // faire l'ajout
+                        users.addUser(nouv);
+                    }
+                }
+            }
+
+        } else
+            Log.w("COUCOU", "JSON is null");
     }
 }
