@@ -3,6 +3,7 @@ package ovh.exception.watchdogzz.activities;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -47,6 +48,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton mAddPOI, mValidatePOI;
     private GPSPosition mNewPoiPosition;
 
+    private final static int INTERVAL = 1000 * 5; // 5 secondes
+    private Handler mHandler = new Handler();
+
+    private Runnable mHandlerTask = new Runnable() {
+        @Override
+        public void run() {
+            new WebServiceTask(MainActivity.this, null, users.getMe()).execute(getString(R.string.server) + "/where");
+            new WebServiceTask(MainActivity.this, MainActivity.this).execute(getString(R.string.server) + "/where");
+            mHandler.postDelayed(mHandlerTask, INTERVAL);
+        }
+    };
+
+    private void startRequestingTask() {
+        mHandlerTask.run();
+    }
+
+    private void stopRequestingTask() {
+        mHandler.removeCallbacks(mHandlerTask);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         glView.setRenderer(renderer); // Use a custom renderer
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 new WebServiceTask(MainActivity.this, MainActivity.this).execute(getString(R.string.server) + "/where");
             }
         });
-
+*/
         mAddPOI = (FloatingActionButton) findViewById(R.id.add_poi);
         mAddPOI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onPause();
         glView.onPause();
         this.postitionManager.stop();
+        this.stopRequestingTask();
     }
 
     @Override
@@ -224,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         glView.onResume();
         this.postitionManager.start();
+        this.startRequestingTask();
     }
 
     @Override
