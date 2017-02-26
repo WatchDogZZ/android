@@ -5,31 +5,27 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
-import android.view.MenuItem;
 
 import com.squareup.picasso.Picasso;
 
-import ovh.exception.watchdogzz.R;
+import java.util.ArrayList;
+import java.util.List;
 
-import ovh.exception.watchdogzz.activities.dummy.DummyContent;
+import ovh.exception.watchdogzz.R;
 import ovh.exception.watchdogzz.data.User;
 
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import static java.lang.Math.abs;
 
 /**
  * An activity representing a list of Users. This activity
@@ -126,11 +122,11 @@ public class UserListActivity extends AppCompatActivity {
 
 
             int hash = mValues.get(position).getName().hashCode();
-            int r = (int)((hash % 10)*255/10f);
+            int r = (int)abs((hash % 10)*255/10f);
             hash/=10;
-            int g = (int)((hash % 10)*255/10f);
+            int g = (int)abs((hash % 10)*255/10f);
             hash/=10;
-            int b = (int)((hash % 10)*255/10f);
+            int b = (int)abs((hash % 10)*255/10f);
 
             holder.mView.setBackgroundColor(Color.rgb(r,g,b));
 

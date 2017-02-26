@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import ovh.exception.watchdogzz.R;
-import ovh.exception.watchdogzz.activities.dummy.DummyContent;
 import ovh.exception.watchdogzz.data.User;
 import ovh.exception.watchdogzz.data.UserManager;
 import ovh.exception.watchdogzz.view.WDRenderer;

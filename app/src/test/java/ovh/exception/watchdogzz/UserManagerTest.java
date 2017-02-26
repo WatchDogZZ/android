@@ -1,7 +1,5 @@
 package ovh.exception.watchdogzz;
 
-import android.net.Uri;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,22 +8,21 @@ import ovh.exception.watchdogzz.data.User;
 import ovh.exception.watchdogzz.data.UserManager;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * Tests for the user manager
  */
 public class UserManagerTest {
 
-    UserManager um;
-    User user, user2, user3;
-    String id;
-    String name;
-    String email;
-    String idToken;
-    String photoUri;
-    Boolean me;
-    GPSPosition pos;
+    private UserManager um;
+    private User user, user2, user3;
+    private String id;
+    private String name;
+    private String email;
+    private String idToken;
+    private String photoUri;
+    private Boolean me;
+    private GPSPosition pos;
 
     @Before
     public void prepare() {

@@ -3,16 +3,14 @@ package ovh.exception.watchdogzz.view;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.Observable;
 import java.util.Observer;
 
 /**
- * Created by begarco on 19/11/2016.
+ * View to introduce OpenGL
  */
-
 public class WDSurfaceView extends GLSurfaceView implements Observer {
 
     private WDRenderer mRenderer;

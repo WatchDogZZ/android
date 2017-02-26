@@ -22,7 +22,7 @@
     <string name="title_user_list">Utilisateurs</string>
     <string name="title_user_detail">Détails</string>
     <string name="rv_mode">Mode RV</string>
-    <string name="server">http://watchdogzz.ddns.net</string>
+    <string name="server">https://watchdogzz.ddns.net</string>
     <string name="normal_mode">Mode normal</string>
     <string name="configuration">Configuration</string>
     <string name="communicate">Communication</string>

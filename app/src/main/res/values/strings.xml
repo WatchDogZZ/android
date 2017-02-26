@@ -31,7 +31,7 @@
     <string name="default_share_message">Hi, here is my position provided by WatchDogZZ: </string>
     <string name="title_user_list">Users</string>
     <string name="title_user_detail">User Detail</string>
-    <string name="server">http://watchdogzz.ddns.net</string>
+    <string name="server">https://watchdogzz.ddns.net</string>
     <string name="rv_mode">RV mode</string>
     <string name="normal_mode">Normal mode</string>
     <string name="configuration">Configuration</string>

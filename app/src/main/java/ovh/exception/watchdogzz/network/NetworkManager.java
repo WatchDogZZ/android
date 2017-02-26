@@ -6,13 +6,13 @@ import android.util.LruCache;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 /**
- * Created by begarco on 20/11/2016.
+ * Manage networking
  */
-
 public class NetworkManager {
 
     private static NetworkManager mInstance;
@@ -57,10 +57,12 @@ public class NetworkManager {
     }
 
     public <T> void addToRequestQueue(Request<T> req) {
+        CertificateManager.AcceptAll();
         getRequestQueue().add(req);
     }
 
     public ImageLoader getImageLoader() {
         return mImageLoader;
     }
-}
+
+ }
