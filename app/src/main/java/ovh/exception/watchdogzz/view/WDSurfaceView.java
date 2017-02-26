@@ -8,6 +8,8 @@ import android.view.MotionEvent;
 import java.util.Observable;
 import java.util.Observer;
 
+import ovh.exception.watchdogzz.data.GPSPosition;
+
 /**
  * View to introduce OpenGL
  */
@@ -22,10 +24,18 @@ public class WDSurfaceView extends GLSurfaceView implements Observer {
     private float mSpaceBetweenFingers; // espace entre les doigts
     private float mScale;        // echelle de zoom
 
+    public GPSPosition getGPSPosition(GPSPosition loc) {
+        return mRenderer.getGPSPosition(loc);
+    }
+
     private enum FingerAction {
         NONE,
         IS_MOVING,
         IS_ZOOMING
+    }
+
+    public void setCibleVisible(boolean val) {
+        this.mRenderer.setCibleVisible(val);
     }
 
     public WDSurfaceView(Context context) {

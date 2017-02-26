@@ -19,7 +19,7 @@
     <string name="default_share_message">Salut, voici ma position fournie par WatchDogZZ : </string>
 
     <!-- Menu -->
-    <string name="title_user_list">Utilisateurs</string>
+    <string name="title_user_list">Liste détaillée</string>
     <string name="title_user_detail">Détails</string>
     <string name="rv_mode">Mode RV</string>
     <string name="server">https://watchdogzz.ddns.net</string>
@@ -29,4 +29,12 @@
     <string name="share_position">Partager la position</string>
     <string name="send_message">Envoyer un message</string>
     <string name="users_list">Les utilisateurs</string>
+    <string name="poi_list">"Points d'intérêt"</string>
+    <string name="add_poi_help">"Appuyez sur la carte pour ajouter un point d'intérêt."</string>
+    <string name="name">Nom</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Annuler</string>
+    <string name="abandon">Abandon</string>
+    <string name="poi_added">Point ajouté.</string>
+    <string name="poi_title">"Points d'intérêt"</string>
 </resources>

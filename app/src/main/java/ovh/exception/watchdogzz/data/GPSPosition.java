@@ -21,6 +21,12 @@ public class GPSPosition {
         return res;
     }
 
+    public void screenToGps(float[] origin, float scale) {
+        latitude = (getLatitude() / scale + origin[1]);
+        longitude = (getLongitude() / scale + origin[0]);
+        altitude = (getAltitude() / scale + origin[2]);
+    }
+
     @Override
     public String toString() {
         return getLatitude() + " " + getLongitude() + " " + getAltitude();

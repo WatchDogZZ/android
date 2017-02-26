@@ -11,6 +11,10 @@
             android:icon="@drawable/logo"
             android:title="@string/users_list" />
         <item
+            android:id="@+id/poi_list"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="@string/poi_list" />
+        <item
             android:id="@+id/rv_mode"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/rv_mode" />
