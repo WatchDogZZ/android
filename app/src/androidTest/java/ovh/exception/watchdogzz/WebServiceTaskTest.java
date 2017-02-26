@@ -1,7 +1,6 @@
 package ovh.exception.watchdogzz;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -23,11 +22,11 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class WebServiceTaskTest {
-    User user;
-    String name, email, photo, token;
-    Float[] pos = {1f,2f,3f};
-    Context context;
-    CountDownLatch signal = new CountDownLatch(1);
+    private User user;
+    private String name, email, photo, token;
+    private Float[] pos = {1f,2f,3f};
+    private Context context;
+    private CountDownLatch signal = new CountDownLatch(1);
 
     @Before
     public void prepare() {
@@ -54,7 +53,7 @@ public class WebServiceTaskTest {
         TestWSConsumer consumer = new TestWSConsumer();
         consumer.sig = signal;
         WebServiceTask ws = new WebServiceTask(context,consumer);
-        ws.post("http://watchdogzz.ddns.net/login",user);
+        ws.post("https://watchdogzz.ddns.net/login",user);
         signal.await();
         assertEquals("{\"status\":\"ok\"}",consumer.result);
     }

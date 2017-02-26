@@ -2,11 +2,8 @@ package ovh.exception.watchdogzz.model;
 
 import android.content.Context;
 import android.util.Log;
-import android.util.Pair;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -15,9 +12,8 @@ import javax.microedition.khronos.opengles.GL10;
 import ovh.exception.watchdogzz.data.User;
 
 /**
- * Created by begarco on 19/11/2016.
+ * Class for representing the map of an establishment
  */
-
 public class WDMap extends Observable implements WDDrawable, Observer {
     private WDObjet map;
     private HashMap<String,WDArtefact> markers;
@@ -39,7 +35,7 @@ public class WDMap extends Observable implements WDDrawable, Observer {
     }
 
     // intersection of bat a and b
-    float [] origin = {45.759231f, 3.111185f, 0.0f};
+    private float [] origin = {45.759231f, 3.111185f, 0.0f};
     //float [] origin = {0,0,0};
 
 
@@ -60,7 +56,7 @@ public class WDMap extends Observable implements WDDrawable, Observer {
             gl.glPushMatrix();
             float[] tmp = x.getPosition().getForMap(origin,3169.8f);
             gl.glTranslatef(tmp[0],tmp[1], 0.5f);
-            Log.d("ME", x.getPosition().toString());
+            Log.d("ME", x.getPosition().toString() + " " + x.getLabel());
 
             x.draw(gl);
             gl.glPopMatrix();

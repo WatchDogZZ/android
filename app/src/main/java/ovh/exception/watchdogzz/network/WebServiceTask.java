@@ -100,6 +100,7 @@ public class WebServiceTask extends AsyncTask<String, Void, JSONObject> {
             public Map<String, String> getHeaders() {
                 Map<String, String> mHeaders = new HashMap<>();
                 mHeaders.put("json", "True");
+                mHeaders.put("rejectUnauthorized", "false");
                 return mHeaders;
             }
         };

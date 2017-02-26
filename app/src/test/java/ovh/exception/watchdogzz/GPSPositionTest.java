@@ -6,15 +6,14 @@ import org.junit.Test;
 import ovh.exception.watchdogzz.data.GPSPosition;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 /**
  * Tests for gps class
  */
 public class GPSPositionTest {
 
-    GPSPosition gps;
-    final int x=1, y=2, z=3;
+    private GPSPosition gps;
+    private final int x=1, y=2, z=3;
 
     @Before
     public void prepare() {

@@ -25,6 +25,8 @@ import java.util.List;
 import ovh.exception.watchdogzz.R;
 import ovh.exception.watchdogzz.data.User;
 
+import static java.lang.Math.abs;
+
 /**
  * An activity representing a list of Users. This activity
  * has different presentations for handset and tablet-size devices. On
@@ -120,11 +122,11 @@ public class UserListActivity extends AppCompatActivity {
 
 
             int hash = mValues.get(position).getName().hashCode();
-            int r = (int)((hash % 10)*255/10f);
+            int r = (int)abs((hash % 10)*255/10f);
             hash/=10;
-            int g = (int)((hash % 10)*255/10f);
+            int g = (int)abs((hash % 10)*255/10f);
             hash/=10;
-            int b = (int)((hash % 10)*255/10f);
+            int b = (int)abs((hash % 10)*255/10f);
 
             holder.mView.setBackgroundColor(Color.rgb(r,g,b));
 

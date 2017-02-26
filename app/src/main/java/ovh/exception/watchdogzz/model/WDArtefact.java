@@ -1,15 +1,17 @@
 package ovh.exception.watchdogzz.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import javax.microedition.khronos.opengles.GL10;
 
 import ovh.exception.watchdogzz.data.GPSPosition;
 
-/**
- * Created by begarco on 19/11/2016.
- */
+import static java.lang.Math.abs;
 
+/**
+ * Displayable Object on map
+ */
 public class WDArtefact implements WDDrawable {
     private WDObjet objet;
     private GPSPosition position;
@@ -21,6 +23,7 @@ public class WDArtefact implements WDDrawable {
     public WDArtefact(Context context) {
         this(context,"","");
     }
+
     public WDArtefact(Context context, String label, String info) {
         this.objet = new WDObjet(WDObjet.Shape.CIRCLE, 0,0,0,0.05f,64);
         this.setLabel(label);
@@ -48,11 +51,14 @@ public class WDArtefact implements WDDrawable {
     public void setLabel(String label) {
         this.label = label;
         int hash = label.hashCode();
-        r = (hash % 10)/10f;
+
+        r = abs((hash % 10)*255/10f/255f);
         hash/=10;
-        g = (hash % 10)/10f;
+        g = abs((hash % 10)*255/10f/255f);
         hash/=10;
-        b = (hash % 10)/10f;
+        b = abs((hash % 10)*255/10f/255f);
+
+        Log.i("COLOR", getLabel() + " " + r + " " + g + " " + b);
     }
 
     public String getInfo() {

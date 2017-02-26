@@ -1,7 +1,6 @@
 package ovh.exception.watchdogzz.network;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -16,9 +15,8 @@ import ovh.exception.watchdogzz.data.GPSPosition;
 import ovh.exception.watchdogzz.data.User;
 
 /**
- * Created by begarco on 20/11/2016.
+ * Provide GPS location
  */
-
 public class PostitionManager {
     // Acquire a reference to the system Location Manager
     private LocationManager locationManager;

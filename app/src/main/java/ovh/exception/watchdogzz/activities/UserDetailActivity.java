@@ -12,10 +12,6 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 import ovh.exception.watchdogzz.R;
-import ovh.exception.watchdogzz.data.User;
-import ovh.exception.watchdogzz.data.UserManager;
-import ovh.exception.watchdogzz.view.WDRenderer;
-import ovh.exception.watchdogzz.view.WDSurfaceView;
 
 /**
  * An activity representing a single User detail screen. This
