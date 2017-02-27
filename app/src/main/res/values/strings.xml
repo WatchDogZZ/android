@@ -29,7 +29,7 @@
 
     <string name="send_to">Send your position to your friends.</string>
     <string name="default_share_message">Hi, here is my position provided by WatchDogZZ: </string>
-    <string name="title_user_list">Users</string>
+    <string name="title_user_list">Detailed list</string>
     <string name="title_user_detail">User Detail</string>
     <string name="server">https://watchdogzz.ddns.net</string>
     <string name="rv_mode">RV mode</string>
@@ -40,5 +40,13 @@
     <string name="send_message">Send message</string>
     <string name="coming_soon">Coming soon…</string>
     <string name="users_list">Users\' list</string>
+    <string name="poi_list">Points of interest</string>
+    <string name="add_poi_help">Tap on the map to place a point of interest.</string>
+    <string name="name">Name</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="abandon">Abandon</string>
+    <string name="poi_added">Point added.</string>
+    <string name="poi_title">Points of interests</string>
 
 </resources>

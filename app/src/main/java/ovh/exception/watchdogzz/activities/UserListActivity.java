@@ -43,19 +43,24 @@ public class UserListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
     private List<User> mUsers;
+    private boolean isPois = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
 
-        mUsers = getIntent().getParcelableArrayListExtra("users");
+        mUsers = getIntent().getParcelableArrayListExtra("pois");
+        if(mUsers==null)
+            mUsers = getIntent().getParcelableArrayListExtra("users");
+        else
+            isPois = true;
         if(mUsers==null)
             mUsers = new ArrayList<>();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
+        toolbar.setTitle(isPois?getString(R.string.poi_title):getTitle());
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();

@@ -1,19 +1,21 @@
 package ovh.exception.watchdogzz.activities;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +28,7 @@ import org.json.JSONObject;
 import ovh.exception.watchdogzz.R;
 import ovh.exception.watchdogzz.data.GPSPosition;
 import ovh.exception.watchdogzz.data.JUser;
+import ovh.exception.watchdogzz.data.PoiManager;
 import ovh.exception.watchdogzz.data.User;
 import ovh.exception.watchdogzz.data.UserManager;
 import ovh.exception.watchdogzz.network.IWSConsumer;
@@ -35,13 +38,35 @@ import ovh.exception.watchdogzz.network.WebServiceTask;
 import ovh.exception.watchdogzz.view.WDRenderer;
 import ovh.exception.watchdogzz.view.WDSurfaceView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IWSConsumer {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IWSConsumer, AddPoiFragment.PoiDialogListener {
 
     private WDSurfaceView glView;
     private UserManager users;
+    private PoiManager pois;
     private PostitionManager postitionManager;
     private NetworkManager networkManager;
-    public boolean isSuccess = false, isFinished = false;
+    private FloatingActionButton mAddPOI, mValidatePOI;
+    private GPSPosition mNewPoiPosition;
+
+    private final static int INTERVAL = 1000 * 5; // 5 secondes
+    private Handler mHandler = new Handler();
+
+    private Runnable mHandlerTask = new Runnable() {
+        @Override
+        public void run() {
+            new WebServiceTask(MainActivity.this, null, users.getMe()).execute(getString(R.string.server) + "/where");
+            new WebServiceTask(MainActivity.this, MainActivity.this).execute(getString(R.string.server) + "/where");
+            mHandler.postDelayed(mHandlerTask, INTERVAL);
+        }
+    };
+
+    private void startRequestingTask() {
+        mHandlerTask.run();
+    }
+
+    private void stopRequestingTask() {
+        mHandler.removeCallbacks(mHandlerTask);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         glView.setRenderer(renderer); // Use a custom renderer
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +88,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 new WebServiceTask(MainActivity.this, MainActivity.this).execute(getString(R.string.server) + "/where");
             }
         });
+*/
+        mAddPOI = (FloatingActionButton) findViewById(R.id.add_poi);
+        mAddPOI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, R.string.add_poi_help, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                glView.setCibleVisible(true);
+                mAddPOI.hide();
+                mValidatePOI.show();
+            }
+        });
+
+        mValidatePOI = (FloatingActionButton) findViewById(R.id.validate_poi);
+        mValidatePOI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddPoiFragment dialog = new AddPoiFragment();
+                dialog.show(getFragmentManager(), "PoiDialogFragment");
+                mNewPoiPosition = new GPSPosition(0f,0f,0.5f);
+                glView.setCibleVisible(false);
+                mValidatePOI.hide();
+                mAddPOI.show();
+                MainActivity.this.glView.requestRender();
+            }
+        });
+        mValidatePOI.hide();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -70,13 +122,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.postitionManager = new PostitionManager(this);
         this.networkManager = NetworkManager.getInstance(this.getApplicationContext());
         setUsers(new UserManager());
+        this.pois = new PoiManager();
         User futurMe = getIntent().getParcelableExtra("user");
         getUsers().addObserver(renderer.getMap());
         this.users.setMe(futurMe);
 
         /** TODO supppress stub **/
         this.users.addUser(new User("tito", "Bob", "bob@mail.com", "", "http://www.superaktif.net/wp-content/upLoads/2011/07/Han.Solo_.jpg", false, new GPSPosition(3.111185f, 45.759231f, 0.0f)));
-        this.users.addUser(new User("tata", "Alice", "alice@mail.com", "", "http://www.superaktif.net/wp-content/upLoads/2011/07/Han.Solo_.jpg", false, new GPSPosition(3.111185f, 45.759271f, 0.5f)));
+        this.users.addUser(new User("tata", "Alice", "alice@mail.com", "", "http://static.anakinworld.com/uploads/entries/original/personnage-leia-organa-solo.jpg", false, new GPSPosition(3.111185f, 45.759271f, 0.5f)));
         /******************************************************/
 
         // login sur le serveur
@@ -165,6 +218,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             masterViewIntent.putExtra("users", users.getUsers());
             masterViewIntent.putExtra("user", users.getMe());
             startActivity(masterViewIntent);
+        } else if (id == R.id.poi_list) {
+            Intent masterViewIntent = new Intent(MainActivity.this, UserListActivity.class);
+            masterViewIntent.putExtra("pois", pois.getUsers());
+            startActivity(masterViewIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -172,11 +229,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    private GPSPosition getGPSPosition(GPSPosition loc) {
+        return glView.getGPSPosition(loc);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
         glView.onPause();
         this.postitionManager.stop();
+        this.stopRequestingTask();
     }
 
     @Override
@@ -184,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         glView.onResume();
         this.postitionManager.start();
+        this.startRequestingTask();
     }
 
     @Override
@@ -248,5 +311,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else
             Log.w("COUCOU", "JSON is null");
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Snackbar.make(findViewById(R.id.content_main), R.string.poi_added, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+        this.pois.createNewPoi(((AddPoiFragment)dialog).getName());
+        pois.finalizeNewPoi(getGPSPosition(mNewPoiPosition));
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        Snackbar.make(findViewById(R.id.content_main), R.string.abandon, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 }

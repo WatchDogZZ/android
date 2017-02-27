@@ -15,6 +15,7 @@ import ovh.exception.watchdogzz.data.User;
  * Class for representing the map of an establishment
  */
 public class WDMap extends Observable implements WDDrawable, Observer {
+    private final float scale = 3169.8f;
     private WDObjet map;
     private HashMap<String,WDArtefact> markers;
     private Context context;
@@ -48,13 +49,14 @@ public class WDMap extends Observable implements WDDrawable, Observer {
         gl.glRotatef(57.55046185f,0.0f,0.0f,1.0f);
         gl.glScalef(0.002f,0.002f,0.002f);
         gl.glTranslatef(-1682f,-1016f,0); // position dans le mesh du point d'origine
+        gl.glColor4f(0,0,0,1.0f);
         map.draw(gl);
         gl.glPopMatrix();
 
         // dessin des marqueurs
         for (WDArtefact x : markers.values()) {
             gl.glPushMatrix();
-            float[] tmp = x.getPosition().getForMap(origin,3169.8f);
+            float[] tmp = x.getPosition().getForMap(getOrigin(), getScale());
             gl.glTranslatef(tmp[0],tmp[1], 0.5f);
             Log.d("ME", x.getPosition().toString() + " " + x.getLabel());
 
@@ -92,5 +94,17 @@ public class WDMap extends Observable implements WDDrawable, Observer {
         }
         this.setChanged();
         this.notifyObservers();
+    }
+
+    public float[] getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(float[] origin) {
+        this.origin = origin;
+    }
+
+    public float getScale() {
+        return scale;
     }
 }

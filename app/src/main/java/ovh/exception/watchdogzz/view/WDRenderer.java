@@ -3,6 +3,7 @@ package ovh.exception.watchdogzz.view;
 import android.content.Context;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
+import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -11,18 +12,20 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import ovh.exception.watchdogzz.data.GPSPosition;
+import ovh.exception.watchdogzz.model.WDArtefact;
 import ovh.exception.watchdogzz.model.WDMap;
 
 
 /**
- * Created by begarco on 19/11/2016.
+ * Renderer for displayni a watchdogzz map
  */
-
 public class WDRenderer implements Renderer {
 
     private Context context;    // contexte de l'application
     private WDCamera camera;    // camera
     private WDMap map;          // modele de la carte
+    private WDArtefact cible;
 
 
     private final float[] mat_ambient = { 0.2f, 0.3f, 0.8f, 1.0f };
@@ -34,16 +37,19 @@ public class WDRenderer implements Renderer {
     private final float[] mat_specular = { 0.2f * 0.4f, 0.2f * 0.6f, 0.2f * 0.8f, 1.0f };
     private FloatBuffer mat_specular_buf;
 
-    public volatile float mLightX = 0f;
-    public volatile float mLightY = 0f;
-    public volatile float mLightZ = 3f;
+    private volatile float mLightX = 0f;
+    private volatile float mLightY = 0f;
+    private volatile float mLightZ = 3f;
 
+    private boolean isCibleVisible = false;
 
     // Constructeur avec contexte
     public WDRenderer(Context context) {
         this.context = context;
         this.setMap(new WDMap(context));
         this.camera = new WDCamera(0, 0, -8.0f);
+        this.cible = new WDArtefact(context, "cible", "cible");
+        cible.setPosition(new GPSPosition(0f,0f,0.5f));
     }
 
     /**
@@ -145,6 +151,12 @@ public class WDRenderer implements Renderer {
         gl.glLightfv(GL10.GL_LIGHT0, GL10.GL_POSITION, mat_posiBuf);
 
         gl.glPushMatrix();
+        if(isCibleVisible()) {
+            gl.glPushMatrix();
+            gl.glTranslatef(0, 0, -3f);
+            this.cible.draw(gl);
+            gl.glPopMatrix();
+        }
         this.camera.watch(gl);
         gl.glPushMatrix();
         this.getMap().draw(gl);                   // Draw model
@@ -170,5 +182,23 @@ public class WDRenderer implements Renderer {
 
     public void setMap(WDMap map) {
         this.map = map;
+    }
+
+    public GPSPosition getGPSPosition(GPSPosition loc) {
+        GPSPosition res = loc;
+
+        res.setLatitude(-camera.x());
+        res.setLongitude(-camera.y());
+        res.screenToGps(map.getOrigin(),map.getScale());
+
+        return res;
+    }
+
+    public boolean isCibleVisible() {
+        return isCibleVisible;
+    }
+
+    public void setCibleVisible(boolean cibleVisible) {
+        isCibleVisible = cibleVisible;
     }
 }
